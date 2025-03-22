@@ -46,8 +46,11 @@ export async function handler(req, res) {
                     <loc>${baseUrl}/post/${hindiSlug}</loc>
                     <lastmod>${new Date(post.modified).toISOString()}</lastmod>
                     <priority>0.80</priority>
-                    <title>${post.title.rendered}</title>
-                    <image>${featuredImageUrl}</image>
+                    <image>
+                        <loc>${featuredImageUrl}</loc>
+                        <caption>${post.title.rendered}</caption>
+                        <title>${post.title.rendered}</title>
+                    </image>
                 </url>
             `;
         }).filter(Boolean).join(''); // Filter out empty slugs
@@ -56,7 +59,8 @@ export async function handler(req, res) {
         const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>${baseUrl}</loc>
         <lastmod>${new Date().toISOString()}</lastmod>
