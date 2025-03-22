@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import NewsCard from '@/components/NewsCard';
 import styles from '@/styles/Home.module.css';
 import Header from '@/components/Header';
+import Head from 'next/head';
 
 export default function Home() {
     const [newsData, setNewsData] = useState([]);
@@ -34,16 +35,30 @@ export default function Home() {
     }, []);
 
     return (
-        <div className={styles.container}>
-            <Header />
-            {loading && <p>Loading news...</p>}
-            {error && <p className={styles.error}>Error: {error}</p>}
+        <>
+            {/* SEO Meta Tags */}
+            <Head>
+                <title>Hindi Latest News Highlights, Aaj Ke Taaja Khabar Hindi Mein - Khabar24live.com</title>
+                <meta name="description" content="Stay updated with the latest news, articles, and updates on Khabar24live. Get insights on trending topics across various categories." />
+                <link rel="canonical" href="https://khabar24live.com" />
+                <meta property="og:title" content="Khabar24live - Latest News " />
+                <meta property="og:description" content="Explore breaking news, trending stories, and the latest updates across a variety of topics." />
+                <meta property="og:image" content="https://khabar24live.com/og-image.jpg" />
+                <meta property="og:url" content="https://khabar24live.com" />
+                <meta name="robots" content="index, follow" />
+            </Head>
 
-            <div className={styles.newsGrid}>
-                {newsData.map((news) => (
-                    <NewsCard key={news.id} {...news} />
-                ))}
+            <div className={styles.container}>
+                <Header />
+                {loading && <p>Loading news...</p>}
+                {error && <p className={styles.error}>Error: {error}</p>}
+
+                <div className={styles.newsGrid}>
+                    {newsData.map((news) => (
+                        <NewsCard key={news.id} {...news} />
+                    ))}
+                </div>
             </div>
-        </div>
+        </>
     );
 }

@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import styles from "@/styles/Article.module.css";
 import slugify from "slugify";
 
-const PostPage = ({ post, canonicalUrl }) => {
+const PostPage = ({ post, author, canonicalUrl }) => {
     const router = useRouter();
 
     if (router.isFallback) {
@@ -41,7 +41,9 @@ const PostPage = ({ post, canonicalUrl }) => {
                 <html lang="hi" />
                 <title>{post.title.rendered}</title>
                 <meta name="description" content={post.excerpt.rendered.replace(/<[^>]*>?/gm, '')} />
+                <meta name="robots" content="index, follow" /> {/* Allow indexing and following links */}
                 <meta name="robots" content="max-image-preview:large" />
+	
                 {/* Set the canonical link dynamically */}
                 <link rel="canonical" href={canonicalUrl} />
             </Head>
@@ -54,6 +56,9 @@ const PostPage = ({ post, canonicalUrl }) => {
 
                 {/* Display Publish Date & Time */}
                 <p className={styles.date}>🕒 प्रकाशित: {publishedDate}</p>
+
+                {/* Display Author Name */}
+                <p className={styles.author}>लेखक: {author.name}</p>
 
                 {/* Display Featured Image */}
                 <img src={featuredImage} alt={post.title.rendered} className={styles.featuredImage} />
@@ -86,10 +91,14 @@ export async function getServerSideProps(context) {
         return { notFound: true };
     }
 
+    // Fetch the author's details using the author's ID
+    const authorRes = await fetch(`https://newsstate24.com/wp-json/wp/v2/users/${post.author}`);
+    const author = await authorRes.json();
+
     // Generate the full URL for the canonical link
     const canonicalUrl = `https://${context.req.headers.host}/post/${slug}`;
 
-    return { props: { post, canonicalUrl } };
+    return { props: { post, author, canonicalUrl } };
 }
 
 export default PostPage;
