@@ -1,7 +1,7 @@
 /* styles/Header.module.css */
 
 .header {
-    width: 100%;
+    
     max-width: 1200px; /* ✅ Limits header width */
     margin: 0 auto; /* ✅ Centers the header */
     display: flex;
