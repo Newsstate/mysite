@@ -2,8 +2,11 @@
 
 export async function handler(req, res) {
     try {
-        // Fetch all posts from the WordPress API
-        const response = await fetch('https://newsstate24.com/wp-json/wp/v2/posts?_embed=wp:featuredmedia');
+        // Define the number of posts to fetch
+        const postsLimit = 100;
+
+        // Fetch posts from the WordPress API (limit is added to request to ensure we only fetch required posts)
+        const response = await fetch(`https://newsstate24.com/wp-json/wp/v2/posts?_embed=wp:featuredmedia&per_page=${postsLimit}`);
         const posts = await response.json();
 
         // Check if posts are available
@@ -13,9 +16,6 @@ export async function handler(req, res) {
 
         // Sort posts by the `date` (or `modified`) in descending order to get the most recent posts first
         const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        // Limit to the latest 500 posts
-        const limitedPosts = sortedPosts.slice(0, 500);
 
         // Base URL of your site (adjust if necessary)
         const baseUrl = 'https://khabar24live.com';
@@ -31,7 +31,7 @@ export async function handler(req, res) {
         };
 
         // Generate the URLs for the posts using the Hindi title as the slug
-        const urls = limitedPosts.map(post => {
+        const urls = sortedPosts.map(post => {
             // Use the Hindi title to create a slug and append post ID
             const hindiSlug = createSlugFromTitle(post.title.rendered, post.id);
 
