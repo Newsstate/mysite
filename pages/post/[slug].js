@@ -23,7 +23,7 @@ const PostPage = ({ post, author, canonicalUrl }) => {
         "/placeholder.jpg"; // Fallback image
 
     // Format publish date & time
-    const publishedDate = new Date(post.date).toLocaleDateString("hi-IN", {
+    const publishedDate = new Date(post.date).toLocaleDateString("en-us", {
         weekday: "long",
         year: "numeric",
         month: "long",
@@ -34,6 +34,9 @@ const PostPage = ({ post, author, canonicalUrl }) => {
 
     // ✅ Get proper slug
     const slug = router.query.slug;
+
+    // Create dynamic author URL
+    const authorUrl = `http://localhost:3000/author/${slugify(author.name.toLowerCase())}`;
 
     return (
         <>
@@ -55,10 +58,12 @@ const PostPage = ({ post, author, canonicalUrl }) => {
                 <h1 className={styles.title}>{post.title.rendered}</h1>
 
                 {/* Display Publish Date & Time */}
-                <p className={styles.date}>🕒 प्रकाशित: {publishedDate}</p>
+                <p className={styles.date}>🕒 Published on: {publishedDate}</p>
 
-                {/* Display Author Name */}
-                <p className={styles.author}>लेखक: {author.name}</p>
+                {/* Display Author Name with hyperlink */}
+                <p className={styles.author}>
+                    By: <a href={authorUrl} target="_blank" rel="noopener noreferrer">{author.name}</a>
+                </p>
 
                 {/* Display Featured Image */}
                 <img src={featuredImage} alt={post.title.rendered} className={styles.featuredImage} />
