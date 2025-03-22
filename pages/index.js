@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import NewsCard from '@/components/NewsCard';
 import styles from '@/styles/Home.module.css';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';  {/* Corrected this import */}
 import Head from 'next/head';
 
 export default function Home() {
@@ -59,6 +60,8 @@ export default function Home() {
                     ))}
                 </div>
             </div>
+
+            <Footer /> {/* Added Footer component */}
         </>
     );
 }

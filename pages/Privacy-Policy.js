@@ -5,7 +5,7 @@ export default function Categories() {
     return (
         <div className={styles.container}>
             <Header />
-            <h1>Categories</h1>
+            <h1>Privacy Policy</h1>
             <p>Explore news categories like Politics, Sports, Technology, and more.</p>
         </div>
     );

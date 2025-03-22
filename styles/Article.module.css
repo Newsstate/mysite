@@ -46,3 +46,13 @@
     font-size: 24px;
     color: #0070f3;
 }
+
+/* Article.module.css */
+.excerpt {
+    font-size: 1.1rem;
+    margin-top: 10px;
+    color: #555;
+    line-height: 1.6;
+	font-weight: 600;
+}
+

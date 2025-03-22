@@ -1,31 +1,34 @@
-/* styles/Header.module.css */
-
+/* Header.module.css */
 .header {
+      text-align: center;
+  
+    background-color:white;
+    margin: auto;
+}
+
+.siteTitle {
+    margin-bottom: 10px; /* Space between title and menu */
     
-    max-width: 1200px; /* ✅ Limits header width */
-    margin: 0 auto; /* ✅ Centers the header */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    padding: 15px 20px;
-    overflow:auto;
 }
 
-/* Site Title */
 .siteTitle h1 {
-    font-size: 24px;
-    margin: 0;
+        font-size: 2rem;
+    font-weight: bold;
+    color: #000000;
 }
 
-/* Navigation Menu */
+.nav {
+    margin-top: 10px;
+}
+
 .nav ul {
-    list-style: none;
-    display: flex;
+  list-style: none;
+    padding: 10;
+    display: flex
+;
+    justify-content: center;
     gap: 20px;
-    margin: 0;
-    padding: 0;
+    background-color: #333;
 }
 
 .nav ul li {
@@ -33,14 +36,12 @@
 }
 
 .nav ul li a {
-    color: white;
     text-decoration: none;
-    font-weight: bold;
-    padding: 8px 12px;
-    transition: background 0.3s ease;
+    font-size: 17px;
+    color: white; /* Link color */
+    transition: color 0.3s ease;
 }
 
 .nav ul li a:hover {
-    background: #555;
-    border-radius: 5px;
+    color: #005bb5; /* Change color on hover */
 }
