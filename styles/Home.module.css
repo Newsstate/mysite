@@ -1,0 +1,67 @@
+/* styles/Home.module.css */
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    
+}
+
+/* 3-Column Grid Layout */
+.newsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+    .newsGrid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Site Title */
+.siteTitle h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+/* Navigation Menu */
+.nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.nav ul li {
+    display: inline;
+}
+
+.nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    transition: background 0.3s ease;
+}
+
+.nav ul li a:hover {
+    background: #555;
+    border-radius: 5px;
+}
