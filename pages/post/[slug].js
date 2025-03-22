@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import styles from "@/styles/Article.module.css";
 import slugify from "slugify";
 
-const PostPage = ({ post }) => {
+const PostPage = ({ post, canonicalUrl }) => {
     const router = useRouter();
 
     if (router.isFallback) {
@@ -42,7 +42,8 @@ const PostPage = ({ post }) => {
                 <title>{post.title.rendered}</title>
                 <meta name="description" content={post.excerpt.rendered.replace(/<[^>]*>?/gm, '')} />
                 <meta name="robots" content="max-image-preview:large" />
-                <link rel="canonical" href={`https://newsstate24.com/post/${slug}`} />
+                {/* Set the canonical link dynamically */}
+                <link rel="canonical" href={canonicalUrl} />
             </Head>
 
             <Header />
@@ -85,7 +86,10 @@ export async function getServerSideProps(context) {
         return { notFound: true };
     }
 
-    return { props: { post } };
+    // Generate the full URL for the canonical link
+    const canonicalUrl = `https://${context.req.headers.host}/post/${slug}`;
+
+    return { props: { post, canonicalUrl } };
 }
 
 export default PostPage;
