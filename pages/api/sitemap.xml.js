@@ -38,19 +38,26 @@ export async function handler(req, res) {
             // Only generate URL if the slug is not empty
             if (!hindiSlug) return '';
 
-            // Get the featured image URL
-            const featuredImageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/placeholder.jpg';
+            // Format post details
+            const loc = `${baseUrl}/business/${hindiSlug}`;
+            const lastmod = new Date(post.modified).toISOString();
+            const title = post.title.rendered;
+            const publicationDate = new Date(post.date).toISOString();
+            const hindiTitle = post.title.rendered; // Assuming post.title.rendered is in Hindi
+            const language = "hi"; // Assuming the language is Hindi
 
             return `
                 <url>
-                    <loc>${baseUrl}/post/${hindiSlug}</loc>
-                    <lastmod>${new Date(post.modified).toISOString()}</lastmod>
-                    <priority>0.80</priority>
-                    <image>
-                        <loc>${featuredImageUrl}</loc>
-                        <caption>${post.title.rendered}</caption>
-                        <title>${post.title.rendered}</title>
-                    </image>
+                    <loc>${loc}</loc>
+                    <lastmod>${lastmod}</lastmod>
+                    <news:news>
+                        <news:publication>
+                            <news:name>khabar24live</news:name>
+                            <news:language>${language}</news:language>
+                        </news:publication>
+                        <news:publication_date>${publicationDate}</news:publication_date>
+                        <news:title>${hindiTitle}</news:title>
+                    </news:news>
                 </url>
             `;
         }).filter(Boolean).join(''); // Filter out empty slugs
@@ -59,8 +66,7 @@ export async function handler(req, res) {
         const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>${baseUrl}</loc>
         <lastmod>${new Date().toISOString()}</lastmod>
