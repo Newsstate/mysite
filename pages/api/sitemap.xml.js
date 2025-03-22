@@ -1,53 +1,62 @@
-// pages/api/sitemap.js
+// pages/api/sitemap.xml.js
 
 export async function handler(req, res) {
-    // Fetch all posts from the WordPress API
-    const response = await fetch('https://newsstate24.com/wp-json/wp/v2/posts?_embed=wp:featuredmedia');
-    const posts = await response.json();
+    try {
+        // Fetch all posts from the WordPress API
+        const response = await fetch('https://newsstate24.com/wp-json/wp/v2/posts?_embed=wp:featuredmedia');
+        const posts = await response.json();
 
-    if (!posts || posts.length === 0) {
-        return res.status(404).send("No posts found");
-    }
+        // Check if posts are available
+        if (!posts || posts.length === 0) {
+            return res.status(404).send("No posts found");
+        }
 
-    // Base URL of your site (adjust if necessary)
-    const baseUrl = 'https://khabar24live.com';
+        // Sort posts by the `date` (or `modified`) in descending order to get the most recent posts first
+        const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    // Function to create a slug from the Hindi title and append post ID
-    const createSlugFromTitle = (title, postId) => {
-        // Convert Hindi title to lowercase and replace spaces with hyphens
-        // We keep only alphanumeric characters, hyphens, and spaces
-        return title
-            .toLowerCase()
-            .replace(/[\s-]+/g, '-') // Replace spaces and hyphens with a single hyphen
-            .replace(/[^\w\u0900-\u097F\s-]+/g, '') // Remove any non-Hindi or non-alphanumeric characters, but keep Hindi letters
-            .trim() + `-${postId}`; // Append post ID to slug
-    };
+        // Limit to the latest 500 posts
+        const limitedPosts = sortedPosts.slice(0, 500);
 
-    // Generate the URLs for the posts using the Hindi title as the slug
-    const urls = posts.map(post => {
-        // Use the Hindi title to create a slug and append post ID
-        const hindiSlug = createSlugFromTitle(post.title.rendered, post.id);
+        // Base URL of your site (adjust if necessary)
+        const baseUrl = 'https://khabar24live.com';
 
-        // Only generate URL if the slug is not empty
-        if (!hindiSlug) return '';
+        // Function to create a slug from the Hindi title and append post ID
+        const createSlugFromTitle = (title, postId) => {
+            // Convert Hindi title to lowercase and replace spaces with hyphens
+            return title
+                .toLowerCase()
+                .replace(/[\s-]+/g, '-') // Replace spaces and hyphens with a single hyphen
+                .replace(/[^\w\u0900-\u097F\s-]+/g, '') // Remove non-Hindi or non-alphanumeric characters
+                .trim() + `-${postId}`; // Append post ID to slug
+        };
 
-        // Get the featured image URL
-        const featuredImageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/placeholder.jpg';
+        // Generate the URLs for the posts using the Hindi title as the slug
+        const urls = limitedPosts.map(post => {
+            // Use the Hindi title to create a slug and append post ID
+            const hindiSlug = createSlugFromTitle(post.title.rendered, post.id);
 
-        return `
-            <url>
-                <loc>${baseUrl}/post/${hindiSlug}</loc>
-                <lastmod>${new Date(post.modified).toISOString()}</lastmod>
-                <priority>0.80</priority>
-                <title>${post.title.rendered}</title>
-                <image>${featuredImageUrl}</image>
-            </url>
-        `;
-    }).filter(Boolean).join(''); // Filter out empty slugs
+            // Only generate URL if the slug is not empty
+            if (!hindiSlug) return '';
 
-    // Construct the complete XML for the sitemap without any leading newlines or spaces
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+            // Get the featured image URL
+            const featuredImageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/placeholder.jpg';
+
+            return `
+                <url>
+                    <loc>${baseUrl}/post/${hindiSlug}</loc>
+                    <lastmod>${new Date(post.modified).toISOString()}</lastmod>
+                    <priority>0.80</priority>
+                    <title>${post.title.rendered}</title>
+                    <image>${featuredImageUrl}</image>
+                </url>
+            `;
+        }).filter(Boolean).join(''); // Filter out empty slugs
+
+        // Construct the complete XML for the sitemap with additional namespaces
+        const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>${baseUrl}</loc>
         <lastmod>${new Date().toISOString()}</lastmod>
@@ -56,11 +65,15 @@ export async function handler(req, res) {
     ${urls}
 </urlset>`;
 
-    // Set the Content-Type header to indicate that this is XML
-    res.setHeader('Content-Type', 'application/xml');
+        // Set the correct Content-Type header
+        res.setHeader('Content-Type', 'application/xml');
 
-    // Send the generated sitemap
-    res.status(200).send(sitemap);
+        // Send the generated sitemap
+        return res.status(200).send(sitemap);
+    } catch (error) {
+        console.error("Error generating sitemap:", error);
+        return res.status(500).send("Internal Server Error");
+    }
 }
 
 export default handler;
