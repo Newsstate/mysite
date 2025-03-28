@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Script from "next/script"; 
+import Script from "next/script";  // Import Next.js Script component
 import "@/styles/global.css";  
 import "@/styles/Header.module.css";  
 import "@/styles/NewsCard.module.css";  

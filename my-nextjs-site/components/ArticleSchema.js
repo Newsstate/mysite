@@ -9,14 +9,14 @@ const ArticleSchema = ({ post, author, publishedDate, modifiedDate, canonicalUrl
         author: {
             "@type": "Person",
             name: author.name,
-            url: `https://newsstate24.com/author/${author.slug}`,
+            url: `https://khabar24live.com/author/${author.slug}`,
         },
         publisher: {
             "@type": "Organization",
             name: "khabar24live",
             logo: {
                 "@type": "ImageObject",
-                url: "https://newsstate24.com/logo.png", // Replace with actual logo URL
+                url: "https://khabar24live.com/logo.png", // Replace with actual logo URL
             },
         },
         datePublished: publishedDate,

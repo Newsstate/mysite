@@ -10,13 +10,13 @@ export default function Home({ newsData }) {
         <>
             {/* SEO Meta Tags */}
             <Head>
-                <title>Hindi Latest News Highlights, Aaj Ke Taaja Khabar Hindi Mein - Newsstate24.com</title>
-                <meta name="description" content="Stay updated with the latest news, articles, and updates on newsstate24. Get insights on trending topics across various categories." />
+                <title>Newsstate24 Hindi Latest News Highlights, Aaj Ke Taaja khabar Hindi Mein - newsstate24.com</title>
+                <meta name="description" content="Stay updated with the latest news, articles, and updates on Newsstate24. Get insights on trending topics across various categories." />
                 <link rel="canonical" href="https://newsstate24.com" />
-                <meta property="og:title" content="newsstate24 - Latest News" />
+                <meta property="og:title" content="Khabar24live - Latest News" />
                 <meta property="og:description" content="Explore breaking news, trending stories, and the latest updates across a variety of topics." />
-                <meta property="og:image" content="https://newsstate24.com/og-image.jpg" />
-                <meta property="og:url" content="https://newsstate24.com" />
+                <meta property="og:image" content="https://khabar24live.com/og-image.jpg" />
+                <meta property="og:url" content="https://khabar24live.com" />
                 <meta name="robots" content="index, follow" />
             </Head>
 

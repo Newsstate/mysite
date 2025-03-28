@@ -11,13 +11,13 @@ export default function Navbar() {
         { id: "b", name: "ऑटो", slug: "auto", url: "https://Newsstate24.com/category/auto" },
         { id: "c", name: "कारोबार", slug: "business", url: "https://Newsstate24.com/category/business" },
         { id: "d", name: "क्रिकेट", slug: "cricket", url: "https://Newsstate24.com/category/cricket" },
-        { id: "e", name: "टेक्नोलॉजी", slug: "technology", url: "https://Newsstate24.com/category/technology" },
-        { id: "f", name: "देश", slug: "national", url: "https://Newsstate24.com/category/national" },
-        { id: "g", name: "मनोरंजन", slug: "entertainment", url: "https://Newsstate24.com/category/entertainment" },
-        { id: "h", name: "लाइफस्टाइल", slug: "lifestyle", url: "https://Newsstate24.com/category/lifestyle" },
-        { id: "i", name: "लेटेस्ट", slug: "latest-news", url: "https://Newsstate24.com/category/latest-news" },
-        { id: "j", name: "शहर और राज्य", slug: "local", url: "https://Newsstate24.com/category/local" },
-        { id: "k", name: "शिक्षा", slug: "education", url: "https://Newsstate24.com/category/education" },
+        { id: "e", name: "टेक्नोलॉजी", slug: "technology", url: "https://newsstate24.com/category/technology" },
+        { id: "f", name: "देश", slug: "national", url: "https://newsstate24.com/category/national" },
+        { id: "g", name: "मनोरंजन", slug: "entertainment", url: "https://newsstate24.com/category/entertainment" },
+        { id: "h", name: "लाइफस्टाइल", slug: "lifestyle", url: "https://newsstate24.com/category/lifestyle" },
+        { id: "i", name: "लेटेस्ट", slug: "latest-news", url: "https://newsstate24.com/category/latest-news" },
+        { id: "j", name: "शहर और राज्य", slug: "local", url: "https://newsstate24.com/category/local" },
+        { id: "k", name: "शिक्षा", slug: "education", url: "https://newsstate24.com/category/education" },
     ];
 
     return (
@@ -29,7 +29,7 @@ export default function Navbar() {
                         <Link href="/" className={styles.navLink}>होम</Link>
                     </li>  
                     <li className={styles.navItem}>
-                        <Link href="https://Newsstate24.com/category/horoscope" className={styles.navLink} target="_blank">
+                        <Link href="https://newsstate24.com/category/horoscope" className={styles.navLink} target="_blank">
                             आज का राशिफल
                         </Link>
                     </li>

@@ -36,15 +36,15 @@ const PostPage = ({ post, author, canonicalUrl }) => {
     const publishedDate = convertToIST(new Date(post.date));
     const modifiedDate = convertToIST(new Date(post.modified));
 
-    const authorUrl = `https://newsstate24.com/author/${slugify(author.name.toLowerCase())}`;
+    const authorUrl = `http://newsstate24.com/author/${slugify(author.name.toLowerCase())}`;
 
     const cleanExcerpt = (htmlContent) => {
         return htmlContent.replace(/<a[^>]*>(.*?)<\/a>/g, "$1").replace(/<[^>]+>/g, "").replace(/Read more/gi, "").trim();
     };
 
     const breadcrumbs = [
-        { name: "Home", url: "https://newsstate24.com" },
-        { name: "Post", url: "https://newsstate24.com/post" },
+        { name: "Home", url: "https://khabar24live.com" },
+        { name: "Post", url: "https://khabar24live.com/post" },
         { name: post.title.rendered, url: canonicalUrl },
     ];
 
@@ -173,7 +173,7 @@ export async function getServerSideProps(context) {
         return { notFound: true };
     }
 
-    const authorRes = await fetch(`https://khabar24live.com/wp-json/wp/v2/users/${post.author}`);
+    const authorRes = await fetch(`https://newsstate24.com/wp-json/wp/v2/users/${post.author}`);
     const author = await authorRes.json();
 
     const canonicalUrl = `https://${context.req.headers.host}/post/${slug}`;

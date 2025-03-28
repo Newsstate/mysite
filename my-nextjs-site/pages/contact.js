@@ -20,7 +20,7 @@ india
 newsstate6294@gmail.com (General Inquiries)
 
 🌐 Website:
-www.newsstate24.com</p>
+www.khbar24live.com</p>
       
         </div>
     );

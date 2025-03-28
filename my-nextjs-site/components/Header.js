@@ -19,9 +19,9 @@ export default function Header() {
                     <Link href="/" className={styles.logoLink}>
                         <Image 
                             src="/site-logo.png" 
-                            alt="Newsstate24 Logo" 
-                            width={120} 
-                            height={40} 
+                            alt="newsstate24 Logo" 
+                            width={150} 
+                            height={50} 
                             priority 
                         />
                     </Link>

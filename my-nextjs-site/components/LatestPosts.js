@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const LatestPosts = () => {
     const [posts, setPosts] = useState([]);
-    const sitemapUrl = "https://newsstate24.com/api/sitemap.xml";
+    const sitemapUrl = "https://khabar24live.com/api/sitemap.xml";
 
     useEffect(() => {
         const fetchSitemapPosts = async () => {

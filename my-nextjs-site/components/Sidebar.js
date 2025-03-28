@@ -7,7 +7,7 @@ const Sidebar = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch("https://khabar24live.com/wp-json/wp/v2/posts?_embed&per_page=5");
+                const response = await fetch("https://newsstate24.com/wp-json/wp/v2/posts?_embed&per_page=5");
                 const data = await response.json();
                 const formattedPosts = data.map(post => {
                     const hindiTitle = post.title.rendered;
@@ -30,12 +30,31 @@ const Sidebar = () => {
         fetchPosts();
     }, []);
 
+    useEffect(() => {
+        // Load the AdSense script dynamically
+        const adsbygoogleScript = document.createElement("script");
+        adsbygoogleScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+        adsbygoogleScript.async = true;
+        adsbygoogleScript.dataset.adClient = "ca-pub-6466761575770733";
+        adsbygoogleScript.crossOrigin = "anonymous";
+        document.body.appendChild(adsbygoogleScript);
+
+        // Push ads if AdSense is already loaded
+        try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+            console.error("AdSense error:", e);
+        }
+    }, []);
+
     return (
         <aside className={styles.sidebar}>
             {/* Advertisement Section */}
             <div className={styles.widget}>
-                <h3>Advertisement</h3>
-                <img src="/ad-placeholder.jpg" alt="Advertisement" className={styles.adImage} />
+                <ins className="adsbygoogle"
+                    style={{ display: "inline-block", width: "300px", height: "250px" }}
+                    data-ad-client="ca-pub-6466761575770733"
+                    data-ad-slot="2480605015"></ins>
             </div>
 
             {/* Recent Posts Section */}
@@ -52,8 +71,6 @@ const Sidebar = () => {
                     ))}
                 </ul>
             </div>
-
-            
         </aside>
     );
 };

@@ -50,8 +50,8 @@ export default function CategoryPage({ categoryId, categoryName }) {
     return (
         <>
             <Head>
-                <title>{categoryName} News - newsstate24</title>
-                <meta name="description" content={`Latest ${categoryName} news updates on newsstate24.`} />
+                <title>{categoryName} News - Newsstate24</title>
+                <meta name="description" content={`Latest ${categoryName} news updates on Khabar24live.`} />
             </Head>
 
             <Header />
@@ -86,7 +86,7 @@ export async function getServerSideProps({ params }) {
         const { slug } = params;
 
         // Fetch category details
-        const categoryRes = await fetch(`https://khabar24live.com/wp-json/wp/v2/categories?per_page=100&hide_empty=false`);
+        const categoryRes = await fetch(`https://newsstate24.com/wp-json/wp/v2/categories?per_page=100&hide_empty=false`);
         if (!categoryRes.ok) throw new Error('Failed to fetch categories');
 
         const categories = await categoryRes.json();

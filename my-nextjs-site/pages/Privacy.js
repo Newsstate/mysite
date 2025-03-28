@@ -4,9 +4,9 @@ import styles from '@/styles/Page.module.css';
 export default function Contact() {
     return (
         <div className={styles.container}>
-            <Header/>
+            <Header />
             <h1>Privacy</h1>
-            <p> Privacy Policy   </p>
+            <p>   </p>
       
         </div>
     );
