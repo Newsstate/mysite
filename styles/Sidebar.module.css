@@ -1,0 +1,72 @@
+
+
+
+.sidebar {
+   padding:5px;
+    background-color: #fff;
+    
+    border-radius: 10px;
+    display: block;
+}
+
+.widget {
+    margin-bottom: 20px;
+}
+
+.widget h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.widget ul {
+    list-style: none;
+    padding: 0;
+}
+
+.widget ul li {
+    margin-bottom: 8px;
+}
+
+.widget ul li a {
+    color: black;
+	font-size:17px;
+    text-decoration: none;
+}
+
+.widget ul li a:hover {
+    text-decoration: underline;
+}
+
+.adImage {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.newsList {
+    list-style: none;
+    padding: 0;
+}
+
+.newsItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.newsLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}

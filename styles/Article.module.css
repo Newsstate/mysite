@@ -1,0 +1,387 @@
+
+
+/* Sticky Sidebar for Desktop */
+.sidebarDesktop {
+    width: 300px;
+    background-color: #fff;
+   
+    
+    
+    display: block; /* Ensure it appears only on desktop */
+    
+    position: sticky;
+    top: 20px; /* Adjust for spacing */
+    height: fit-content;
+}
+
+.socialShare {
+    display: flex;
+    gap: 10px;
+    justify-content: start;
+    margin-bottom: 10px; /* Space before the featured image */
+}
+
+.socialShare a img {
+    width: 30px; /* Adjust size as needed */
+    height: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.socialShare a img:hover {
+    transform: scale(1.1);
+}
+
+.separator {
+    width: 100%;
+    height: 2px;
+    background-color: #ddd;
+    margin: 30px 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contentArea {
+    display: flex;
+    width: 100%;
+}
+
+.mainContent {
+    flex: 1;
+    padding-right: 20px;
+}
+
+/* Sidebar for Desktop */
+.sidebarDesktop {
+width: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Sidebar for Mobile */
+.sidebarMobile {
+    display: none; /* Hide by default */
+}
+
+/* Article Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0px;
+    background: #ffffff;
+}
+
+/* Centered Author Section */
+.authorContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    padding: 0px;
+    background-color: #f9f9f9;
+}
+
+/* Profile Card */
+.profileCard {
+        background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px #0000001a;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    text-align: start;
+    transition: transform .3s, box-shadow .3s;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* Hover Effect */
+.profileCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Author Photo */
+.photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 4px solid #ddd;
+}
+
+/* Author Name */
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* Author Bio */
+.bio {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+    margin-top: 10px;
+    padding: 0 10px;
+    margin-bottom: 29px;
+    width: auto;
+    height: 75px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: auto;
+}
+
+/* Article Title */
+.title {
+    font-size: 29px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: start;
+    margin-top: 20px;
+}
+
+/* Article Excerpt */
+.excerpt {
+    font-size: 18px;
+    color: #666;
+    text-align: start;
+    margin-bottom: 20px;
+}
+
+/* Date and Time */
+.date {
+    font-size: 14px;
+    color: #888;
+    text-align: start;
+    margin-bottom: 15px;
+}
+
+/* Author Name */
+.author {
+    font-size: 16px;
+    color: #444;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.author a {
+    color: #0077b5;
+    text-decoration: none;
+}
+
+.author a:hover {
+    text-decoration: underline;
+}
+
+/* Featured Image (Responsive Fix) */
+.featuredImage {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 12px;
+    object-fit: cover;
+	aspect-ratio: 16 / 9;
+}
+
+/* Article Content */
+.content {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.7;
+}
+
+/* Fix for images inside article content */
+.content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 12px;
+    object-fit: cover;
+	aspect-ratio: 16 / 9;
+}
+
+/* Author Card (Bottom of the Article) */
+.authorCard {
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Author Image */
+.authorImage {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+/* Author Details */
+.authorDetails {
+    flex: 1;
+}
+
+.authorName {
+    font-size: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.authorName a {
+    text-decoration: none;
+    color: #0077b5;
+}
+
+.authorName a:hover {
+    text-decoration: underline;
+}
+
+/* Author Bio */
+.authorBio {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+    text-align: start;
+}
+
+/* Social Links */
+.socialLinks {
+    margin-top: 5px;
+}
+
+.socialLinks a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #0077b5;
+    font-size: 18px;
+}
+
+.socialLinks a i {
+    transition: transform 0.2s ease-in-out;
+}
+
+.socialLinks a:hover i {
+    transform: scale(1.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack elements vertically */
+    }
+
+    .mainContent {
+        padding-right: 0; /* Remove padding for full width */
+    }
+
+    .sidebarDesktop {
+        display: none; /* Hide sidebar on mobile */
+    }
+
+    .sidebarMobile {
+       display: flex
+;
+            width: 100%;
+            margin-top: 20px;
+            flex-direction: column;
+            align-items: center;
+    }
+	
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack elements vertically */
+    }
+
+    .mainContent {
+        padding-right: 0; /* Remove padding for full width */
+    }
+
+    .sidebarDesktop {
+        display: none; /* Hide sidebar on mobile */
+    }
+
+    .sidebarMobile {
+        display: flex
+;
+            width: 100%;
+            margin-top: 20px;
+            flex-direction: column;
+            align-items: center;
+    }
+
+    /* Updated Author Card for Mobile */
+    .authorContainer {
+		display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    padding: 0;
+    background-color: #f9f9f9;
+    }
+
+    .profileCard {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px #0000001a;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+        width: 100%;
+		margin-bottom:10px;
+		gap:5px;
+    }
+
+    .photo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-top: 15px;
+        border: 3px solid #ddd;
+    }
+
+    .title {
+        font-size: 28px;
+        font-weight: 600;
+        color: #333;
+        text-align: start;
+        margin: 10px 0;
+    }
+
+    .bio {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.5;
+        padding: 10px;
+        width: 100%;
+        text-align: start;
+        border: none;
+        background: none;
+    }
+}
+
+
+}
