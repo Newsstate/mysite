@@ -39,17 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-node_modules/
-.next/
-.DS_Store
-*.log
-*.zip
-*.csv
-*.txt
-*.py
-myenv/
-tutorial_env/
-prisma/
-meta_tags.csv
-news/
