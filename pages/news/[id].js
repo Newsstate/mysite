@@ -15,7 +15,7 @@ export default function ArticlePage() {
 
         async function fetchArticle() {
             try {
-                const response = await fetch(`https://newsstate24.com/wp-json/wp/v2/posts/${id}?_embed`);
+                const response = await fetch(`https://khabar24live.com/wp-json/wp/v2/posts/${id}?_embed`);
                 if (!response.ok) throw new Error('Failed to fetch article');
 
                 const data = await response.json();

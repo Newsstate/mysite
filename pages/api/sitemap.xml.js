@@ -12,7 +12,7 @@ export async function handler(req, res) {
 
         // Function to fetch posts with pagination
         const fetchPosts = async (page) => {
-            const response = await fetch(`https://newsstate24.com/wp-json/wp/v2/posts?_embed=wp:featuredmedia&per_page=${perPage}&page=${page}`);
+            const response = await fetch(`https://khabar24live.com/wp-json/wp/v2/posts?_embed=wp:featuredmedia&per_page=${perPage}&page=${page}`);
             if (!response.ok) throw new Error(`Failed to fetch page ${page}: ${response.status}`);
             return response.json();
         };

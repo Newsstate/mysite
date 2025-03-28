@@ -7,7 +7,7 @@ const Sidebar = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch("https://newsstate24.com/wp-json/wp/v2/posts?_embed&per_page=5");
+                const response = await fetch("https://khabar24live.com/wp-json/wp/v2/posts?_embed&per_page=5");
                 const data = await response.json();
                 const formattedPosts = data.map(post => {
                     const hindiTitle = post.title.rendered;

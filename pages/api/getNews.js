@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     const { categoryId } = req.query;
 
     try {
-        const response = await fetch(`https://newsstate24.com/wp-json/wp/v2/posts?_embed&categories=${categoryId}&per_page=20`);
+        const response = await fetch(`https://khabar24live.com/wp-json/wp/v2/posts?_embed&categories=${categoryId}&per_page=20`);
         const data = await response.json();
 
         res.status(200).json(data); // No CORS issue since it's from the same domain

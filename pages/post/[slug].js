@@ -8,7 +8,7 @@ import Sidebar from "@/components/Sidebar";
 import styles from "@/styles/Article.module.css";
 import slugify from "slugify";
 import React from "react";
-import Navbar from '@/components/Navbar'; // ✅ Importing Navbar
+import Navbar from "@/components/Navbar"; // ✅ Importing Navbar
 
 const convertToIST = (date) => {
     if (!date) return "";
@@ -16,15 +16,14 @@ const convertToIST = (date) => {
     return istDate.toISOString().replace(/\.\d{3}Z/, "+05:30"); // Removes milliseconds
 };
 
-
-const PostPage = ({ post, author, canonicalUrl }) => {
+const PostPage = ({ post, author, canonicalUrl, error }) => {
     const router = useRouter();
 
     if (router.isFallback) {
         return <h2 className={styles.loading}>लोड हो रहा है...</h2>;
     }
 
-    if (!post || !post.title) {
+    if (error || !post || !post.title) {
         return <h2 className={styles.error}>पोस्ट नहीं मिली!</h2>;
     }
 
@@ -35,8 +34,7 @@ const PostPage = ({ post, author, canonicalUrl }) => {
 
     const publishedDate = convertToIST(new Date(post.date));
     const modifiedDate = convertToIST(new Date(post.modified));
-
-    const authorUrl = `http://newsstate24.com/author/${slugify(author.name.toLowerCase())}`;
+    const authorUrl = `https://newsstate24.com/author/${slugify(author.name.toLowerCase())}`;
 
     const cleanExcerpt = (htmlContent) => {
         return htmlContent.replace(/<a[^>]*>(.*?)<\/a>/g, "$1").replace(/<[^>]+>/g, "").replace(/Read more/gi, "").trim();
@@ -63,15 +61,9 @@ const PostPage = ({ post, author, canonicalUrl }) => {
             </Head>
 
             <Header />
-            <Navbar /> {/* ✅ Navbar placed just after Head */}
+            <Navbar />
             <Breadcrumb breadcrumbs={breadcrumbs} />
-            <ArticleSchema
-                post={post}
-                author={author}
-                publishedDate={publishedDate}
-                modifiedDate={modifiedDate}
-                canonicalUrl={canonicalUrl}
-            />
+            <ArticleSchema post={post} author={author} publishedDate={publishedDate} modifiedDate={modifiedDate} canonicalUrl={canonicalUrl} />
 
             <div className={styles.container}>
                 <div className={styles.contentArea}>
@@ -80,51 +72,30 @@ const PostPage = ({ post, author, canonicalUrl }) => {
                         <p className={styles.excerpt}>{cleanExcerpt(post.excerpt.rendered)}</p>
 
                         <p className={styles.articleMeta}>
-                            🕒 Published: {new Date(post.date).toLocaleString("en-IN", { 
-                                weekday: "long", 
-                                year: "numeric", 
-                                month: "long", 
-                                day: "numeric", 
-                                hour: "2-digit", 
-                                minute: "2-digit", 
-                                timeZone: "Asia/Kolkata" 
-                            })} 
-                            {` | `} 
-                            🔄 Modified: {new Date(post.modified).toLocaleString("en-IN", { 
-                                weekday: "long", 
-                                year: "numeric", 
-                                month: "long", 
-                                day: "numeric", 
-                                hour: "2-digit", 
-                                minute: "2-digit", 
-                                timeZone: "Asia/Kolkata" 
+                            🕒 Published: {new Date(post.date).toLocaleString("en-IN", {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                timeZone: "Asia/Kolkata"
                             })}
-                            {` | `} 
-                            ✍️ By: <a href={authorUrl} className={styles.authorLink} target="_blank" rel="noopener noreferrer">
-                                {author.name}
-                            </a>
+                            {` | `}
+                            🔄 Modified: {new Date(post.modified).toLocaleString("en-IN", {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                timeZone: "Asia/Kolkata"
+                            })}
+                            {` | `}
+                            ✍️ By: <a href={authorUrl} className={styles.authorLink} target="_blank" rel="noopener noreferrer">{author.name}</a>
                         </p>
 
-                        {/* Social Share Buttons */}
-                        <div className={styles.socialShare}>
-                            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonicalUrl)}`} target="_blank" rel="noopener noreferrer">
-                                <img src="/icons/facebook.png" alt="Share on Facebook" />
-                            </a>
-                            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(canonicalUrl)}&text=${encodeURIComponent(post.title.rendered)}`} target="_blank" rel="noopener noreferrer">
-                                <img src="/icons/twitter.png" alt="Share on X (Twitter)" />
-                            </a>
-                            <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title.rendered + " " + canonicalUrl)}`} target="_blank" rel="noopener noreferrer">
-                                <img src="/icons/whatsapp.png" alt="Share on WhatsApp" />
-                            </a>
-                            <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(canonicalUrl)}&title=${encodeURIComponent(post.title.rendered)}`} target="_blank" rel="noopener noreferrer">
-                                <img src="/icons/linkedin.png" alt="Share on LinkedIn" />
-                            </a>
-                            <a href={`https://www.instagram.com/`} target="_blank" rel="noopener noreferrer"> 
-                                <img src="/icons/instagram.png" alt="Share on Instagram" />
-                            </a>
-                        </div>
-
-                        {/* ✅ Featured Image (Fixed - Only One Now) */}
+                        {/* ✅ Featured Image */}
                         <img src={featuredImage} alt={post.title.rendered} className={styles.featuredImage} loading="lazy" />
 
                         <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
@@ -158,27 +129,44 @@ const PostPage = ({ post, author, canonicalUrl }) => {
 };
 
 export async function getServerSideProps(context) {
-    const { slug } = context.params;
+    const postId = 14433; // Hardcoded ID for now
     const { amp } = context.query;
 
     if (amp === "1" || amp !== undefined) {
         return { notFound: true };
     }
 
-    const postId = slug.split("-").pop();
-    const res = await fetch(`https://khabar24live.com/wp-json/wp/v2/posts/${postId}?_embed=wp:featuredmedia`);
-    const post = await res.json();
+    try {
+        console.log(`Fetching post with ID: ${postId}`);
 
-    if (!post || post.code === "rest_post_invalid_id") {
-        return { notFound: true };
+        // Fetch the post using ID
+        const res = await fetch(`https://khabar24live.com/wp-json/wp/v2/posts/${postId}?_embed=wp:featuredmedia`);
+        const post = await res.json();
+
+        if (!post || post.code === "rest_post_invalid_id") {
+            console.error("Post not found.");
+            return { notFound: true };
+        }
+
+        console.log("Post found:", post.title.rendered);
+
+        // Fetch Author Details
+        const authorRes = await fetch(`https://khabar24live.com/wp-json/wp/v2/users/${post.author}`);
+        const author = await authorRes.json();
+
+        if (!author || author.code === "rest_user_invalid_id") {
+            console.warn("Author not found, using default.");
+            return { props: { post, author: { name: "Unknown Author", avatar_urls: { 96: "/default-avatar.png" }, description: "" } } };
+        }
+
+        // Generate canonical URL
+        const canonicalUrl = `https://${context.req.headers.host}/post/${post.slug}`;
+
+        return { props: { post, author, canonicalUrl } };
+    } catch (error) {
+        console.error("Error fetching post data:", error);
+        return { props: { error: true } };
     }
-
-    const authorRes = await fetch(`https://newsstate24.com/wp-json/wp/v2/users/${post.author}`);
-    const author = await authorRes.json();
-
-    const canonicalUrl = `https://${context.req.headers.host}/post/${slug}`;
-
-    return { props: { post, author, canonicalUrl } };
 }
 
 export default PostPage;
