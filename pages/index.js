@@ -41,7 +41,7 @@ export default function Home({ newsData }) {
 // Fetch data server-side before rendering the page
 export async function getServerSideProps() {
     try {
-        const response = await fetch('https://newsstate24.com/wp-json/wp/v2/posts?_embed&per_page=63');
+        const response = await fetch('https://khabar24live.com/wp-json/wp/v2/posts?_embed&per_page=63');
         if (!response.ok) throw new Error('Failed to fetch news');
 
         const data = await response.json();
