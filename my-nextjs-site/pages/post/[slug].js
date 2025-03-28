@@ -36,7 +36,7 @@ const PostPage = ({ post, author, canonicalUrl }) => {
     const publishedDate = convertToIST(new Date(post.date));
     const modifiedDate = convertToIST(new Date(post.modified));
 
-    const authorUrl = `http://newsstate24.com/author/${slugify(author.name.toLowerCase())}`;
+    const authorUrl = `http://khabar24live.com/author/${slugify(author.name.toLowerCase())}`;
 
     const cleanExcerpt = (htmlContent) => {
         return htmlContent.replace(/<a[^>]*>(.*?)<\/a>/g, "$1").replace(/<[^>]+>/g, "").replace(/Read more/gi, "").trim();
@@ -166,7 +166,7 @@ export async function getServerSideProps(context) {
     }
 
     const postId = slug.split("-").pop();
-    const res = await fetch(`https://khabar24live.com/wp-json/wp/v2/posts/${postId}?_embed=wp:featuredmedia`);
+    const res = await fetch(`https://newsstate24.com/wp-json/wp/v2/posts/${postId}?_embed=wp:featuredmedia`);
     const post = await res.json();
 
     if (!post || post.code === "rest_post_invalid_id") {

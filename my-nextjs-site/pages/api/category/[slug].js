@@ -3,7 +3,7 @@ export default async function handler(req, res) {
 
     try {
         // Fetch all categories from WordPress
-        const categoryRes = await fetch('https://khabar24live.com/wp-json/wp/v2/categories');
+        const categoryRes = await fetch('https://newsstate24.com/wp-json/wp/v2/categories');
         if (!categoryRes.ok) throw new Error('Failed to fetch categories');
 
         const categories = await categoryRes.json();
