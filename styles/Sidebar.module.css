@@ -2,11 +2,12 @@
 
 
 .sidebar {
-   padding:5px;
+      padding: 5px;
     background-color: #fff;
-    
     border-radius: 10px;
     display: block;
+    width: auto;
+    max-width: 310px;
 }
 
 .widget {

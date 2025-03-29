@@ -1,11 +1,21 @@
+import { useEffect } from 'react';
 import NewsCard from '@/components/NewsCard';
 import styles from '@/styles/Home.module.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import Head from 'next/head';
+import Sidebar from "@/components/Sidebar";
 
 export default function Home({ newsData }) {
+    useEffect(() => {
+        try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+            console.error("AdSense error:", e);
+        }
+    }, []);
+
     return (
         <>
             {/* SEO Meta Tags */}
@@ -18,21 +28,66 @@ export default function Home({ newsData }) {
                 <meta property="og:image" content="https://Newsstate24.com/og-image.jpg" />
                 <meta property="og:url" content="https://Newsstate24.com" />
                 <meta name="robots" content="index, follow" />
+
+                {/* Google AdSense */}
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733"
+                    crossOrigin="anonymous"></script>
             </Head>
 
             <Header />
             <Navbar />
+
+            {/* Three-Column Layout */}
             <div className={styles.container}>
-                <main className={styles.mainContent}>
-                    <div className={styles.newsGrid}>
-                        {newsData.length > 0 ? (
-                            newsData.map((news) => <NewsCard key={news.id} {...news} />)
-                        ) : (
-                            <p>No news available.</p>
+                <main className={styles.contentArea}>
+                    {/* Left Column - Categories or Trending Topics */}
+                    <aside className={styles.leftColumn}>
+                        <h2>मध्यप्रदेश</h2>
+                        {newsData.slice(0, 3).map((news) => (
+                            <NewsCard key={news.id} {...news} compact />
+                        ))}
+                    </aside>
+
+                    {/* Center Column - Main News (Single Column) */}
+                    <section className={styles.mainContent}>
+                        {/* Featured News */}
+                        {newsData.length > 0 && (
+                            <div className={styles.featuredNews}>
+                                <img src={newsData[0].image} alt={newsData[0].title} className={styles.featuredImage} />
+                                <h1>{newsData[0].title}</h1>
+                                <p>{newsData[0].excerpt}</p>
+                            </div>
                         )}
-                    </div>
-                </main>
-            </div>
+
+                        {/* Single Column Layout for News Cards */}
+                        <div className={styles.newsList}>
+                            {newsData.slice(6, 50).map((news) => (
+                                <NewsCard key={news.id} {...news} />
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Right Column - Ads & More News */}
+                    <div className={styles.sidebarDesktop}>
+                        <Sidebar />
+                        <aside className={styles.rightColumn}>
+                            {/* Google AdSense Ad (Top of Sidebar) */}
+                            <div className={styles.adContainer}>
+                                <ins className="adsbygoogle"
+                                    style={{ display: "inline-block", width: "300px", height: "250px" }}
+                                    data-ad-client="ca-pub-6466761575770733"
+                                    data-ad-slot="5053362651"></ins>
+                            </div>
+
+                            <h2>छत्तीसगढ़</h2>
+                            {newsData.slice(10, 13).map((news) => (
+                                <NewsCard key={news.id} {...news} compact />
+                            ))}
+                        </aside>
+                    </div> {/* Closed sidebarDesktop div properly */}
+                </main> {/* Closed main tag properly */}
+            </div> {/* Closed container div properly */}
+
             <Footer />
         </>
     );
