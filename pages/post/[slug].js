@@ -23,9 +23,9 @@ const insertAdAfterFirstParagraph = (content) => {
         paragraphs.splice(1, 0, `
             <div class="adsense-container">
                 <ins class="adsbygoogle"
-                    style="display:block; text-align:center; margin:20px auto;"
+                    style="display:inline-block;width:300px;height:250px"
                     data-ad-client="ca-pub-6466761575770733"
-                    data-ad-slot="4695706797"
+                    data-ad-slot="5053362651"
                     data-ad-format="auto"
                     data-full-width-responsive="true">
                 </ins>
