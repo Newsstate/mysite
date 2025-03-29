@@ -81,7 +81,7 @@ const PostPage = ({ post, author, categoryName, canonicalUrl }) => {
         { name: post.title.rendered, url: canonicalUrl },
     ];
 
-    const contentWithAd = insertAdAfterFirstParagraph(post.content.rendered);
+    const contentWithoutAd = post.content.rendered;
 
     return (
         <>
@@ -143,7 +143,7 @@ const PostPage = ({ post, author, categoryName, canonicalUrl }) => {
 
                         <img src={featuredImage} alt={post.title.rendered} className={styles.featuredImage} loading="lazy" />
 
-                        <div className={styles.content} dangerouslySetInnerHTML={{ __html: contentWithAd }} />
+                        <div className={styles.content} dangerouslySetInnerHTML={{ __html: contentWithoutAd }} />
                         <div className={styles.separator}></div>
 
                         <h3>About Author</h3>

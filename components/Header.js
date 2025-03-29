@@ -40,7 +40,7 @@ export default function Header() {
                     <li><Link href="/about" onClick={() => setMenuOpen(false)}>About</Link></li>
                     <li><Link href="/contact" onClick={() => setMenuOpen(false)}>Contact</Link></li>
                     <li><Link href="/disclaimer" onClick={() => setMenuOpen(false)}>Disclaimer</Link></li>
-                    <li><Link href="/privacy" onClick={() => setMenuOpen(false)}>Privacy</Link></li>
+                    <li><Link href="/Privacy" onClick={() => setMenuOpen(false)}>Privacy</Link></li>
                 </ul>
             </nav>
         </header>

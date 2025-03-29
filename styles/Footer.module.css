@@ -1,67 +1,80 @@
-/* styles/Footer.module.css */
-
 .footer {
     background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
-    font-size: 14px;
+    color: white;
+    padding: 40px 20px;
 }
 
-.footerContent {
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
-.copyright {
-    margin: 0;
-    font-size: 14px;
-}
-
-.links {
-    margin-top: 10px;
-}
-
-.link {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 14px;
-    transition: color 0.3s ease;
-}
-
-.link:hover {
-    color: #1da1f2; /* Color change on hover */
-}
-
-.mobileAd {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 320px;
-    height: 50px;
-    background: transparent;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
+.section {
+    flex: 1;
     text-align: center;
-    padding: 5px;
+    min-width: 250px;
 }
 
-@media (min-width: 769px) {
-    .mobileAd {
-        display: none; /* Hide on desktop */
-    }
+.section a {
+    color: #ffffff; /* Change link color to white */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease-in-out; /* Smooth transition effect */
 }
 
+.section a:hover {
+    color: #00ff99; /* Change color on hover */
+}
+
+.description {
+    font-size: 14px;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+.socialIcons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.icon {
+    font-size: 24px;
+    color: white;
+    transition: 0.3s;
+}
+
+.icon:hover {
+    color: #1DA1F2;
+}
+
+.button {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px;
+    background: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.button:hover {
+    background: #45A049;
+}
+
+.highlight {
+    font-size: 18px;
+    font-weight: bold;
+}
 
 @media (max-width: 768px) {
-    .footerContent {
-        padding: 0 10px;
-    }
-
-    .links {
-        margin-top: 15px;
+    .container {
+        flex-direction: column;
+        align-items: center;
     }
 }

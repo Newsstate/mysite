@@ -1,13 +1,14 @@
 .navbar {
-    display: flex;
-        justify-content: center;
-        list-style: none;
-        padding: 10px;
-        margin: 0;
-        background: #333;
-        overflow: auto;
-         scrollbar-width: none;
-       
+        display: flex
+;
+    justify-content: space-around;
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    background: #333;
+    overflow: auto;
+    scrollbar-width: none;
+    
     
   
 }
@@ -20,17 +21,18 @@
     gap: 0px; /* Space between menu items */
     padding: 0;
     margin: 0;
-    margin-left: -162px;
+    
 }
 
 .navItem {
     display: inline-block;
+	margin-left: 2px;
 }
 
 .navLink {
     color: white;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 15px;
     padding: 12px 12px;
     font-weight: bold;
     border-radius: 5px;

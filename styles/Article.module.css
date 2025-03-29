@@ -48,13 +48,14 @@
 .container {
     display: flex;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 1010px;
     margin: 0 auto;
 }
 
 .contentArea {
     display: flex;
     width: 100%;
+	
 }
 
 .mainContent {
@@ -79,7 +80,7 @@ width: 300px;
 
 /* Article Container */
 .container {
-    max-width: 1200px;
+    max-width: 1010px;
     margin: 0 auto;
     padding: 0px;
     background: #ffffff;

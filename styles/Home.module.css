@@ -1,12 +1,12 @@
-
+/* General Layout */
 .container {
-    max-width: 1200px;
+    max-width: 1010px;
     margin: auto;
     display: flex;
     gap: 20px;
-    padding: 0px;
+    padding: 0;
+    width: 100%;
 }
-
 
 /* 3-Column Grid Layout */
 .newsGrid {
@@ -15,35 +15,18 @@
     gap: 20px;
 }
 
+/* Content Areas */
 .mainContent {
-    flex: 1;
+    flex: 2;
+    max-width: 600px;
+    margin-top: 10px;
 }
 
 .sidebar {
     flex-basis: 300px;
-	
 }
 
-/* Responsive for Mobile */
-@media (max-width: 768px) {
-    .newsGrid {
-        grid-template-columns: repeat(1, 1fr);
-    }
-
-    /* Sidebar appears below main content on mobile */
-    .container {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        display: block;
-        flex-basis: auto;
-        width: 100%;
-        margin-top: 20px;
-		padding:10px;
-    }
-}
-
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -57,23 +40,18 @@
     z-index: 1000;
 }
 
-/* Site Title */
 .siteTitle h1 {
     font-size: 24px;
     margin: 0;
 }
 
-/* Navigation Menu */
+/* Navigation */
 .nav ul {
     list-style: none;
     display: flex;
     gap: 15px;
     margin: 0;
     padding: 0;
-}
-
-.nav ul li {
-    display: inline;
 }
 
 .nav ul li a {
@@ -89,32 +67,26 @@
     border-radius: 5px;
 }
 
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 0px;
-}
-
-/* Flexbox Layout */
+/* Content Layout */
 .contentArea {
     display: flex;
     gap: 20px;
 }
 
-/* Left Column */
 .leftColumn {
     flex: 1;
     max-width: 100%;
-	
 }
 
-/* Center Column */
-.mainContent {
-    flex: 2;
-    max-width: 600px;
+.rightColumn {
+    max-width: 100%;
+    position: sticky;
+    top: 0;
+    height: fit-content;
+    width: 320px;
 }
 
+/* Featured News */
 .featuredNews {
     width: 100%;
     position: relative;
@@ -128,17 +100,6 @@
     border-radius: 5px;
 }
 
-/* Right Column */
-.rightColumn {
-        max-width:100%;
-		position: sticky;
-		top: 0px;
-        height: fit-content;
-		
-		
-
-}
-
 /* Ad Box */
 .adContainer {
     width: 100%;
@@ -148,70 +109,85 @@
     margin-bottom: 20px;
 }
 
-/* News Grid */
-.newsGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
+    .newsGrid {
+        grid-template-columns: 1fr;
+    }
     .contentArea {
         flex-direction: column;
     }
-
-    
-
-    .newsGrid {
-        grid-template-columns: repeat(1, 1fr);
+    .container {
+        flex-direction: column;
     }
-	
+    .sidebar {
+        width: 100%;
+        margin-top: 20px;
+        padding: 10px;
+    }
 }
-/* Ensure sticky behavior only on desktop */
+
+/* Sticky Layout for Desktop */
 @media (min-width: 720px) {
     .contentArea {
-        display: flex;
-        align-items: flex-start; /* Aligns items to the top */
-        gap: 20px; /* Adds spacing between columns */
+        align-items: flex-start;
+        max-width: fit-content;
+        width: 1010px;
     }
-
     .leftColumn, .rightColumn {
-       align-self: flex-start; /* Follows natural document flow */
+        align-self: flex-start;
         position: sticky;
-        top: 0px; /* Adjust according to header/navbar height */
-        height: auto; /* Allows dynamic content height */
-        
-        
+        top: 0;
     }
-
-    .leftColumn {
-        flex: 1; /* Adjust width as needed */
-		max-width:100%;
-        
-		
-    }
-
-    .mainContent {
-        flex: 2; /* Ensures center column gets more space */
-		margin-top: 10px;
-    }
-
-    .rightColumn {
-        align-self: flex-start; /* Follows natural document flow */
-        position: sticky;
-		max-width:100%;
-		width:320px;
-        
-    
-		
-    }
-	
 }
 
+/* Home.module.css */
 
+/* New Card for Left Column */
+.leftColumnCard {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
 
+.leftColumnCard:hover {
+    transform: translateY(-5px);
+}
 
+.leftColumnCardImage {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
 
+.leftColumnCardTitle {
+    font-size: 15px;
+    margin: 13px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
 
+.leftColumnCard a {
+    text-decoration: none;
+}
+
+.leftColumnCard a:hover .leftColumnCardTitle {
+    color: #d9534f; /* Change color on hover */
+}
+
+.leftColumnCard {
+    display: block;
+    text-decoration: none;
+    color: #222; /* Ensures the text color is normal */
+    transition: color 0.3s;
+}
+
+.leftColumnCard:hover {
+    color: #555; /* Subtle hover effect */
+}
 
