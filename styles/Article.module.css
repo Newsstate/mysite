@@ -14,6 +14,13 @@
     height: fit-content;
 }
 
+.adsense-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+}
 .socialShare {
     display: flex;
     gap: 10px;

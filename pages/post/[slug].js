@@ -7,7 +7,7 @@ import ArticleSchema from "@/components/ArticleSchema";
 import Sidebar from "@/components/Sidebar";
 import styles from "@/styles/Article.module.css";
 import slugify from "slugify";
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from '@/components/Navbar'; // ✅ Importing Navbar
 
 const convertToIST = (date) => {
@@ -16,9 +16,37 @@ const convertToIST = (date) => {
     return istDate.toISOString().replace(/\.\d{3}Z/, "+05:30"); // Removes milliseconds
 };
 
+// Function to insert AdSense ad after the first paragraph
+const insertAdAfterFirstParagraph = (content) => {
+    const paragraphs = content.split("</p>");
+    if (paragraphs.length > 1) {
+        paragraphs.splice(1, 0, `
+            <div class="adsense-container">
+                <ins class="adsbygoogle"
+                    style="display:block; text-align:center; margin:20px auto;"
+                    data-ad-client="ca-pub-6466761575770733"
+                    data-ad-slot="4695706797"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true">
+                </ins>
+            </div>
+        `);
+    }
+    return paragraphs.join("</p>");
+};
 
 const PostPage = ({ post, author, canonicalUrl }) => {
     const router = useRouter();
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+                console.error("AdSense error:", e);
+            }
+        }
+    }, []);
 
     if (router.isFallback) {
         return <h2 className={styles.loading}>लोड हो रहा है...</h2>;
@@ -48,6 +76,9 @@ const PostPage = ({ post, author, canonicalUrl }) => {
         { name: post.title.rendered, url: canonicalUrl },
     ];
 
+    // Insert AdSense ad dynamically after the first paragraph
+    const contentWithAd = insertAdAfterFirstParagraph(post.content.rendered);
+
     return (
         <>
             <Head>
@@ -57,7 +88,6 @@ const PostPage = ({ post, author, canonicalUrl }) => {
                 <meta name="robots" content="index, follow" />
                 <meta name="robots" content="max-image-preview:large" />
                 <link rel="canonical" href={canonicalUrl} />
-
                 <meta property="article:published_time" content={publishedDate} />
                 <meta property="article:modified_time" content={modifiedDate} />
             </Head>
@@ -105,29 +135,10 @@ const PostPage = ({ post, author, canonicalUrl }) => {
                             </a>
                         </p>
 
-                        {/* Social Share Buttons */}
-                        <div className={styles.socialShare}>
-                            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonicalUrl)}`} target="_blank" rel="noopener noreferrer">
-                                <img src="/icons/facebook.png" alt="Share on Facebook" />
-                            </a>
-                            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(canonicalUrl)}&text=${encodeURIComponent(post.title.rendered)}`} target="_blank" rel="noopener noreferrer">
-                                <img src="/icons/twitter.png" alt="Share on X (Twitter)" />
-                            </a>
-                            <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title.rendered + " " + canonicalUrl)}`} target="_blank" rel="noopener noreferrer">
-                                <img src="/icons/whatsapp.png" alt="Share on WhatsApp" />
-                            </a>
-                            <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(canonicalUrl)}&title=${encodeURIComponent(post.title.rendered)}`} target="_blank" rel="noopener noreferrer">
-                                <img src="/icons/linkedin.png" alt="Share on LinkedIn" />
-                            </a>
-                            <a href={`https://www.instagram.com/`} target="_blank" rel="noopener noreferrer"> 
-                                <img src="/icons/instagram.png" alt="Share on Instagram" />
-                            </a>
-                        </div>
-
-                        {/* ✅ Featured Image (Fixed - Only One Now) */}
+                        {/* ✅ Featured Image */}
                         <img src={featuredImage} alt={post.title.rendered} className={styles.featuredImage} loading="lazy" />
 
-                        <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+                        <div className={styles.content} dangerouslySetInnerHTML={{ __html: contentWithAd }} />
                         <div className={styles.separator}></div>
 
                         <h3>About Author</h3>
