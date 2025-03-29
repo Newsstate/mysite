@@ -16,7 +16,6 @@ const convertToIST = (date) => {
     return istDate.toISOString().replace(/\.\d{3}Z/, "+05:30"); // Removes milliseconds
 };
 
-// Function to insert AdSense ad after the first paragraph
 const insertAdAfterFirstParagraph = (content) => {
     const paragraphs = content.split("</p>");
     if (paragraphs.length > 1) {
@@ -35,7 +34,17 @@ const insertAdAfterFirstParagraph = (content) => {
     return paragraphs.join("</p>");
 };
 
-const PostPage = ({ post, author, canonicalUrl }) => {
+// Function to clean the excerpt by removing HTML tags, links, and "&hellip;"
+const cleanExcerpt = (htmlContent) => {
+    return htmlContent
+        .replace(/<a[^>]*>(.*?)<\/a>/g, "$1") // Remove links but keep text inside
+        .replace(/<[^>]+>/g, "") // Remove all HTML tags
+        .replace(/Read more/gi, "") // Remove "Read more" text
+        .replace(/&hellip;/g, "") // Remove "&hellip;"
+        .trim();
+};
+
+const PostPage = ({ post, author, categoryName, canonicalUrl }) => {
     const router = useRouter();
 
     useEffect(() => {
@@ -66,17 +75,12 @@ const PostPage = ({ post, author, canonicalUrl }) => {
 
     const authorUrl = `https://newsstate24.com/author/${slugify(author.name.toLowerCase())}`;
 
-    const cleanExcerpt = (htmlContent) => {
-        return htmlContent.replace(/<a[^>]*>(.*?)<\/a>/g, "$1").replace(/<[^>]+>/g, "").replace(/Read more/gi, "").trim();
-    };
-
     const breadcrumbs = [
         { name: "Home", url: "https://khabar24live.com" },
         { name: "Post", url: "https://khabar24live.com/post" },
         { name: post.title.rendered, url: canonicalUrl },
     ];
 
-    // Insert AdSense ad dynamically after the first paragraph
     const contentWithAd = insertAdAfterFirstParagraph(post.content.rendered);
 
     return (
@@ -93,7 +97,7 @@ const PostPage = ({ post, author, canonicalUrl }) => {
             </Head>
 
             <Header />
-            <Navbar /> {/* ✅ Navbar placed just after Head */}
+            <Navbar /> 
             <Breadcrumb breadcrumbs={breadcrumbs} />
             <ArticleSchema
                 post={post}
@@ -133,9 +137,10 @@ const PostPage = ({ post, author, canonicalUrl }) => {
                             ✍️ By: <a href={authorUrl} className={styles.authorLink} target="_blank" rel="noopener noreferrer">
                                 {author.name}
                             </a>
+                            {` | `}
+                            📂 Category: <span className={styles.category}>{categoryName}</span>
                         </p>
 
-                        {/* ✅ Featured Image */}
                         <img src={featuredImage} alt={post.title.rendered} className={styles.featuredImage} loading="lazy" />
 
                         <div className={styles.content} dangerouslySetInnerHTML={{ __html: contentWithAd }} />
@@ -187,9 +192,24 @@ export async function getServerSideProps(context) {
     const authorRes = await fetch(`https://khabar24live.com/wp-json/wp/v2/users/${post.author}`);
     const author = await authorRes.json();
 
+    let categoryName = "Uncategorized"; 
+    if (post.categories.length > 0) {
+        const categoryId = post.categories[0];
+        const categoryRes = await fetch(`https://khabar24live.com/wp-json/wp/v2/categories/${categoryId}`);
+        const categoryData = await categoryRes.json();
+        categoryName = categoryData.name || "Uncategorized";
+    }
+
     const canonicalUrl = `https://${context.req.headers.host}/post/${slug}`;
 
-    return { props: { post, author, canonicalUrl } };
+    return { 
+        props: { 
+            post, 
+            author, 
+            categoryName, 
+            canonicalUrl 
+        } 
+    };
 }
 
 export default PostPage;
