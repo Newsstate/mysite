@@ -194,6 +194,7 @@
 
     .mainContent {
         flex: 2; /* Ensures center column gets more space */
+		margin-top: 10px;
     }
 
     .rightColumn {

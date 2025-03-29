@@ -7,7 +7,8 @@
     border-radius: 10px;
     display: block;
     width: auto;
-    max-width: 310px;
+    max-width: 100%;
+    width:310px;
 }
 
 .widget {
@@ -71,3 +72,17 @@
     object-fit: cover;
     border-radius: 5px;
 }
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+	.sidebar {
+      padding: 5px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: block;
+    width: auto;
+    max-width: 100%;
+    
+}
+}
+	
