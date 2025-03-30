@@ -1,24 +1,21 @@
 import { useEffect } from 'react';
-import LeftColumnCard from '@/components/LeftColumnCard';
-import PostCard from '@/components/PostCard';
-import styles from '@/styles/Home.module.css';
+import Link from 'next/link';
+import Head from 'next/head';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
-import Head from 'next/head';
-import Link from 'next/link';
+import PostCard from '@/components/PostCard';
+import AdComponent from '@/components/AdComponent';
+import styles from '@/styles/Home.module.css';
 
 export default function Home({ newsData = [] }) {
-    useEffect(() => {
-        try {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (e) {
-            console.error("AdSense error:", e);
-        }
-    }, []);
-
     // Filter posts for the left sidebar
     const cityAndStateNews = newsData.filter(news => news.category === "शहर और राज्य").slice(0, 3);
+
+    // Function to create slugs from titles
+    const createSlug = (title) => {
+        return encodeURIComponent(title.trim().replace(/\s+/g, '-'));
+    };
 
     return (
         <>
@@ -38,22 +35,30 @@ export default function Home({ newsData = [] }) {
                     {/* Left Sidebar */}
                     <aside className={styles.leftColumn}>
                         <h2>शहर और राज्य</h2>
-                        {cityAndStateNews.map((news) => (
-                            <Link key={news.id} href={`/post/${news.id}`} className={styles.leftColumnCard}>
-                                <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
-                                <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
-                            </Link>
-                        ))}
+                        {cityAndStateNews.map((news) => {
+                            const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
+                            return (
+                                <Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
+                                    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
+                                    <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
+                                </Link>
+                            );
+                        })}
                     </aside>
 
                     {/* Main Content */}
                     <section className={styles.mainContent}>
                         {newsData.length > 0 && (
                             <div className={styles.featuredNews}>
-                                <Link href={`/post/${newsData[0].id}`}>
-                                    <img src={newsData[0]?.image || '/fallback-image.jpg'} alt={newsData[0]?.title || 'News'} className={styles.featuredImage} />
-                                    <h1>{newsData[0]?.title || 'No Title Available'}</h1>
-                                </Link>
+                                {(() => {
+                                    const postSlug = `/post/${createSlug(newsData[0].title)}-${newsData[0].id}`;
+                                    return (
+                                        <Link href={postSlug}>
+                                            <img src={newsData[0]?.image || '/fallback-image.jpg'} alt={newsData[0]?.title || 'News'} className={styles.featuredImage} />
+                                            <h1>{newsData[0]?.title || 'No Title Available'}</h1>
+                                        </Link>
+                                    );
+                                })()}
                             </div>
                         )}
 
@@ -72,16 +77,13 @@ export default function Home({ newsData = [] }) {
                         </div>
                     </section>
 
-                    {/* Right Sidebar with Google AdSense Ad */}
+                    {/* Right Sidebar */}
                     <aside className={styles.rightColumn}>
-                        {/* Google AdSense 300x250 Ad */}
-                        <div className={styles.adContainer}>
+                        <div className={styles.widget}>
                             <ins className="adsbygoogle"
-                                style={{ display: "block", width: "300px", height: "250px" }}
+                                style={{ display: "inline-block", width: "300px", height: "250px" }}
                                 data-ad-client="ca-pub-6466761575770733"
-                                data-ad-slot="2480605015"
-                                data-ad-format="auto"
-                                data-full-width-responsive="true">
+                                data-ad-slot="2480605015">
                             </ins>
                         </div>
 
@@ -99,6 +101,11 @@ export default function Home({ newsData = [] }) {
                                 />
                             ))}
                         </div>
+
+                        {/* Google AdSense Ad */}
+                        <div className={styles.adContainer}>
+                            <AdComponent adSlot="1708986423" />
+                        </div>
                     </aside>
                 </main>
             </div>
@@ -114,7 +121,6 @@ export async function getServerSideProps() {
         if (!response.ok) throw new Error('Failed to fetch news');
 
         const data = await response.json();
-        console.log("API Response:", data);
 
         if (!Array.isArray(data)) throw new Error('Invalid data format');
 
@@ -133,8 +139,6 @@ export async function getServerSideProps() {
             publishedAt: new Date(post.date).toLocaleString('hi-IN', { dateStyle: 'medium', timeStyle: 'short' }),
             category: post._embedded?.['wp:term']?.[0]?.[0]?.name || "अन्य"
         }));
-
-        console.log("Formatted News Data:", formattedNews);
 
         return { props: { newsData: formattedNews } };
     } catch (error) {
