@@ -75,11 +75,13 @@ const PostPage = ({ post, author, categoryName, canonicalUrl }) => {
 
     const authorUrl = `https://newsstate24.com/author/${slugify(author.name.toLowerCase())}`;
 
-    const breadcrumbs = [
-        { name: "Home", url: "https://khabar24live.com" },
-        { name: "Post", url: "https://khabar24live.com/post" },
-        { name: post.title.rendered, url: canonicalUrl },
-    ];
+const breadcrumbs = [
+    { name: "Home", url: "/" }, // Home link
+    { name: categoryName, url: `/${slugify(categoryName.toLowerCase())}` }, // Proper category link
+    { name: post.title.rendered, url: "#" }, // No link for the current article
+];
+
+
 
     const contentWithoutAd = post.content.rendered;
 
@@ -114,7 +116,7 @@ const PostPage = ({ post, author, categoryName, canonicalUrl }) => {
                         <p className={styles.excerpt}>{cleanExcerpt(post.excerpt.rendered)}</p>
 
                         <p className={styles.articleMeta}>
-                            🕒 Published: {new Date(post.date).toLocaleString("en-IN", { 
+                                Published: {new Date(post.date).toLocaleString("en-IN", { 
                                 weekday: "long", 
                                 year: "numeric", 
                                 month: "long", 
@@ -124,7 +126,7 @@ const PostPage = ({ post, author, categoryName, canonicalUrl }) => {
                                 timeZone: "Asia/Kolkata" 
                             })} 
                             {` | `} 
-                            🔄 Modified: {new Date(post.modified).toLocaleString("en-IN", { 
+                                Modified: {new Date(post.modified).toLocaleString("en-IN", { 
                                 weekday: "long", 
                                 year: "numeric", 
                                 month: "long", 
@@ -134,11 +136,11 @@ const PostPage = ({ post, author, categoryName, canonicalUrl }) => {
                                 timeZone: "Asia/Kolkata" 
                             })}
                             {` | `} 
-                            ✍️ By: <a href={authorUrl} className={styles.authorLink} target="_blank" rel="noopener noreferrer">
+                              By: <a href={authorUrl} className={styles.authorLink} target="_blank" rel="noopener noreferrer">
                                 {author.name}
                             </a>
                             {` | `}
-                            📂 Category: <span className={styles.category}>{categoryName}</span>
+                             Category: <span className={styles.category}>{categoryName}</span>
                         </p>
 
                         <img src={featuredImage} alt={post.title.rendered} className={styles.featuredImage} loading="lazy" />
