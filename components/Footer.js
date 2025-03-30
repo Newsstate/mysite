@@ -29,10 +29,10 @@ export default function Footer() {
                         Newsstate24.com पर पढ़ें ताज़ा और ब्रेकिंग हिंदी समाचार। भारत और दुनिया की राजनीति, खेल, बॉलीवुड, व्यापार, शहर, जीवनशैली, ज्योतिष, अध्यात्म, नौकरी और बहुत कुछ।
                     </p>
                     <div className={styles.socialIcons}>
-                        <Link href="#" target="_blank"><FaFacebook className={styles.icon} /></Link>
-                        <Link href="#" target="_blank"><FaTwitter className={styles.icon} /></Link>
-                        <Link href="#" target="_blank"><FaInstagram className={styles.icon} /></Link>
-                        <Link href="#" target="_blank"><FaRss className={styles.icon} /></Link>
+                        <Link href="https://www.facebook.com/hindinewsliveupdates/" target="_blank"><FaFacebook className={styles.icon} /></Link>
+                        <Link href="https://x.com/newsstate244" target="_blank"><FaTwitter className={styles.icon} /></Link>
+                        <Link href="https://www.facebook.com/hindicover" target="_blank"><FaInstagram className={styles.icon} /></Link>
+                        <Link href="https://newsstate24.com/api/sitemap.xml" target="_blank"><FaRss className={styles.icon} /></Link>
                     </div>
                 </div>
                 
