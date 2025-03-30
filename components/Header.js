@@ -20,8 +20,8 @@ export default function Header() {
                         <Image 
                             src="/site-logo.png" 
                             alt="newsstate24 Logo" 
-                            width={150} 
-                            height={50} 
+                            width={120} 
+                            height={40} 
                             priority 
                         />
                     </Link>

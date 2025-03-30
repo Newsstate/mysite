@@ -5,6 +5,20 @@ import { FaFacebook, FaTwitter, FaInstagram, FaRss } from "react-icons/fa";
 import styles from "@/styles/Footer.module.css";
 
 export default function Footer() {
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733";
+        script.crossOrigin = "anonymous";
+        document.body.appendChild(script);
+
+        script.onload = () => {
+            if (window.adsbygoogle) {
+                window.adsbygoogle.push({});
+            }
+        };
+    }, []);
+
     return (
         <footer className={styles.footer}>
             <div className={styles.container}>
@@ -55,6 +69,15 @@ export default function Footer() {
                         <Link href="/category/education">शिक्षा</Link>
                     </p>
                 </div>
+            </div>
+
+            {/* Floating Mobile Ad */}
+            <div className={styles.mobileAdContainer}>
+                <ins className="adsbygoogle"
+                    style={{ display: 'inline-block', width: '320px', height: '50px' }}
+                    data-ad-client="ca-pub-6466761575770733"
+                    data-ad-slot="8246126457">
+                </ins>
             </div>
         </footer>
     );

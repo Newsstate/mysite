@@ -20,6 +20,7 @@
     flex: 2;
     max-width: 600px;
     margin-top: 10px;
+	text-decoration:none;
 }
 
 .sidebar {
@@ -99,11 +100,17 @@
 .featuredNews {
     width: 100%;
     position: relative;
-    text-align: center;
+    text-align: start;
     margin-bottom: 20px;
 }
 
 .featuredImage {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.featuredTitle {
     width: 100%;
     height: auto;
     border-radius: 5px;
@@ -154,7 +161,8 @@
     .leftColumn, .rightColumn {
         align-self: flex-start;
         position: sticky;
-        top: 0;
+                top: 6px;
+        margin-top: 10px;
     }
 }
 

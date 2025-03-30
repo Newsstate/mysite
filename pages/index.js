@@ -103,8 +103,13 @@ export default function Home({ newsData = [] }) {
                         </div>
 
                         {/* Google AdSense Ad */}
-                        <div className={styles.adContainer}>
-                            <AdComponent adSlot="1708986423" />
+                        
+						<div className={styles.widget}>
+                            <ins className="adsbygoogle"
+                                style={{ display: "inline-block", width: "320px", height: "50px" }}
+                                data-ad-client="ca-pub-6466761575770733"
+                                data-ad-slot="1708986423">
+                            </ins>
                         </div>
                     </aside>
                 </main>
