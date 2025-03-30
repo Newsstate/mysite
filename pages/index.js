@@ -11,6 +11,7 @@ import styles from '@/styles/Home.module.css';
 export default function Home({ newsData = [] }) {
     // Filter posts for the left sidebar
     const cityAndStateNews = newsData.filter(news => news.category === "शहर और राज्य").slice(0, 3);
+	 const education = newsData.filter(news => news.category === "शिक्षा").slice(0, 3);
 
     // Function to create slugs from titles
     const createSlug = (title) => {
@@ -44,6 +45,16 @@ export default function Home({ newsData = [] }) {
                                 </Link>
                             );
                         })}
+						 <h2>education</h2>
+                             {education.map((news) => {
+                               const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
+                                 return (
+                                <Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
+                                    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
+                                    <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
+                                </Link>
+                            );
+                        })}
                     </aside>
 
                     {/* Main Content */}
@@ -63,7 +74,7 @@ export default function Home({ newsData = [] }) {
                         )}
 
                         <div className={styles.newsList}>
-                            {newsData.slice(1, 50).map((post) => (
+                            {newsData.slice(1, 70).map((post) => (
                                 <PostCard 
                                     key={post.id} 
                                     id={post.id} 
@@ -75,6 +86,7 @@ export default function Home({ newsData = [] }) {
                                 />
                             ))}
                         </div>
+						
                     </section>
 
                     {/* Right Sidebar */}
@@ -106,9 +118,9 @@ export default function Home({ newsData = [] }) {
                         
 						<div className={styles.widget}>
                             <ins className="adsbygoogle"
-                                style={{ display: "inline-block", width: "320px", height: "50px" }}
+                                style={{ display: "inline-block", width: "300px", height: "50px" }}
                                 data-ad-client="ca-pub-6466761575770733"
-                                data-ad-slot="1708986423">
+                                data-ad-slot="2480605015">
                             </ins>
                         </div>
                     </aside>
@@ -122,7 +134,7 @@ export default function Home({ newsData = [] }) {
 
 export async function getServerSideProps() {
     try {
-        const response = await fetch('https://khabar24live.com/wp-json/wp/v2/posts?_embed&per_page=63');
+        const response = await fetch('https://khabar24live.com/wp-json/wp/v2/posts?_embed&per_page=100');
         if (!response.ok) throw new Error('Failed to fetch news');
 
         const data = await response.json();
