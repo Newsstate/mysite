@@ -172,6 +172,7 @@
         position: sticky;
                 top: 6px;
         margin-top: 10px;
+        width: min-content;
     }
 }
 
