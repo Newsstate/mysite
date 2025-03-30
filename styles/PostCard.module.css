@@ -5,7 +5,7 @@
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 12px;
+    padding: 6px;
     margin-bottom: 15px;
 	gap:15px;
 }
@@ -40,10 +40,10 @@
 
 .postMeta {
     display: flex;
-    justify-content: space-between;
     font-size: 14px;
-    color: #555;
+    color: rgb(85, 85, 85);
     margin-top: 8px;
+    gap: 13px;
 }
 
 .category {
@@ -67,7 +67,7 @@
     height: 75px;
     object-fit: cover;
     border-radius: 5px;
-    margin-left: 10px;
+    
 }
 
 .postTitle a {

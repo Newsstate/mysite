@@ -14,7 +14,8 @@ const PostCard = ({ id, title, image, category, categoryLink, date }) => {
     return (
         <div className={styles.postCard}>
             {/* Clickable Image */}
-            <Link href={postSlug} passHref>
+            <Link href={postSlug}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={image || '/fallback-image.jpg'} alt={title} className={styles.postImage} />
             </Link>
 
@@ -28,7 +29,7 @@ const PostCard = ({ id, title, image, category, categoryLink, date }) => {
 
                 {/* Clickable Title */}
                 <h2 className={styles.postTitle}>
-                    <Link href={postSlug} passHref>
+                    <Link href={postSlug}>
                         {title}
                     </Link>
                 </h2>
