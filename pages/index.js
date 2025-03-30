@@ -118,9 +118,9 @@ export default function Home({ newsData = [] }) {
                         
 						<div className={styles.widget}>
                             <ins className="adsbygoogle"
-                                style={{ display: "inline-block", width: "300px", height: "50px" }}
+                                style={{ display: "inline-block", width: "300px", height: "250px" }}
                                 data-ad-client="ca-pub-6466761575770733"
-                                data-ad-slot="2480605015">
+                                data-ad-slot="7528468784">
                             </ins>
                         </div>
                     </aside>

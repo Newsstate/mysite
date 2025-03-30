@@ -76,11 +76,10 @@ const PostPage = ({ post, author, categoryName, canonicalUrl }) => {
     const authorUrl = `https://newsstate24.com/author/${slugify(author.name.toLowerCase())}`;
 
 const breadcrumbs = [
-    { name: "Home", url: "/" }, // Home link
-    { name: categoryName, url: `/${slugify(categoryName.toLowerCase())}` }, // Proper category link
-    { name: post.title.rendered, url: "#" }, // No link for the current article
+    { name: "Home", url: "https://newsstate24.com" },
+    { name: categoryName, url: `/post/${slugify(categoryName.toLowerCase())}` }, // Corrected category link
+    { name: post.title.rendered, url: canonicalUrl },
 ];
-
 
 
     const contentWithoutAd = post.content.rendered;
@@ -140,7 +139,7 @@ const breadcrumbs = [
                                 {author.name}
                             </a>
                             {` | `}
-                             Category: <span className={styles.category}>{categoryName}</span>
+                            📂 Category: <span className={styles.category}>{categoryName}</span>
                         </p>
 
                         <img src={featuredImage} alt={post.title.rendered} className={styles.featuredImage} loading="lazy" />
