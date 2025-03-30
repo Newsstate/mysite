@@ -49,12 +49,20 @@ export default function Home({ newsData = [] }) {
                             </div>
                         )}
 
-                        <div className={styles.newsList}>
-    {newsData.slice(3, 15).map((post, index) => {
-        console.log("Rendering PostCard in Index.js:", post); // Debugging log
-        return <PostCard key={post.id} {...post} />;
-    })}
+                       <div className={styles.newsList}>
+    {newsData.slice(3, 200).map((post) => (
+        <PostCard 
+            key={post.id} 
+            id={post.id} 
+            title={post.title} 
+            image={post.image} 
+            category={post.category} 
+            categoryLink={`/category/${post.category}`} 
+            date={post.publishedAt}
+        />
+    ))}
 </div>
+
                     </section>
 
                     <div className={styles.sidebarDesktop}>
@@ -79,6 +87,8 @@ export async function getServerSideProps() {
         if (!response.ok) throw new Error('Failed to fetch news');
 
         const data = await response.json();
+        console.log("API Response:", data); // Debugging log
+
         if (!Array.isArray(data)) throw new Error('Invalid data format');
 
         const decodeEntities = (str) => {
@@ -97,9 +107,12 @@ export async function getServerSideProps() {
             category: post._embedded?.['wp:term']?.[0]?.[0]?.name || "अन्य"
         }));
 
+        console.log("Formatted News Data:", formattedNews); // Debugging log
+
         return { props: { newsData: formattedNews } };
     } catch (error) {
         console.error("Error fetching news:", error);
-        return { props: { newsData: [] } }; // Always return an array
+        return { props: { newsData: [] } };
     }
 }
+	
