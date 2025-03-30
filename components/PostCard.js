@@ -7,32 +7,30 @@ const createSlug = (title) => {
 };
 
 const PostCard = ({ id, title, image, category, categoryLink, tags = [], date }) => {
-    const postSlug = `/post/${createSlug(title)}-${id}`; // Format: /post/slug-id
+    console.log("PostCard Received Data:", { id, title, image, category, categoryLink, tags, date });
+
+    const postSlug = `/post/${createSlug(title)}-${id}`; 
 
     return (
         <div className={styles.postCard}>
-            {/* Clickable Image */}
             <Link href={postSlug} passHref>
                 <img src={image} alt={title} className={styles.postImage} style={{ cursor: 'pointer' }} />
             </Link>
 
             <div className={styles.postContent}>
                 <div className={styles.postMeta}>
-                    {/* Clickable Category */}
                     <Link href={categoryLink} className={styles.category}>
                         {category}
                     </Link>
                     <span className={styles.date}>{date}</span>
                 </div>
 
-                {/* Clickable Title */}
                 <h2 className={styles.postTitle}>
                     <Link href={postSlug} passHref legacyBehavior>
                         <a>{title}</a>
                     </Link>
                 </h2>
 
-                {/* Tags (Only show if tags exist) */}
                 {tags.length > 0 && (
                     <div className={styles.tags}>
                         {tags.map((tag, index) => (
@@ -45,10 +43,11 @@ const PostCard = ({ id, title, image, category, categoryLink, tags = [], date })
     );
 };
 
-const PostList = ({ posts }) => {
+
+const PostList = ({ posts = [] }) => {  // Ensure posts is always an array
     return (
         <div className={styles.postList}>
-            {posts.slice(0, 10).map((post) => (
+            {posts.slice(0, 60).map((post) => (
                 <PostCard key={post.id} {...post} />
             ))}
         </div>

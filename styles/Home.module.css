@@ -191,3 +191,14 @@
     color: #555; /* Subtle hover effect */
 }
 
+.newsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 16px; /* Space between posts */
+    justify-content: start; /* Align items to the left */
+    align-items: start; /* Ensure alignment */
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
