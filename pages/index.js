@@ -69,7 +69,7 @@ export default function Home({ newsData = [] }) {
                         <Sidebar />
                         <aside className={styles.rightColumn}>
                             <div className={styles.adContainer}>
-                                <ins className="adsbygoogle" style={{ display: "inline-block", width: "300px", height: "250px" }} data-ad-client="ca-pub-6466761575770733" data-ad-slot="5053362651"></ins>
+                                <ins className="adsbygoogle" style={{ display: "block" }} data-ad-client="ca-pub-6466761575770733" data-ad-slot="1709198458"></ins>
                             </div>
                         </aside>
                     </div>
