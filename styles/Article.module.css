@@ -26,6 +26,7 @@
     gap: 10px;
     justify-content: start;
     margin-bottom: 10px; /* Space before the featured image */
+    align-items: center;
 }
 
 .socialShare a img {
