@@ -7,44 +7,67 @@ import ArticleSchema from "@/components/ArticleSchema";
 import Sidebar from "@/components/Sidebar";
 import styles from "@/styles/Article.module.css";
 import slugify from "slugify";
-import React, { useEffect } from "react";
-import Navbar from '@/components/Navbar'; // ✅ Importing Navbar
+import React, { useEffect, useState } from "react";
+import Navbar from '@/components/Navbar'; 
 
 const convertToIST = (date) => {
     if (!date) return "";
     const istDate = new Date(date.getTime() + 5.5 * 60 * 60 * 1000);
-    return istDate.toISOString().replace(/\.\d{3}Z/, "+05:30"); // Removes milliseconds
+    return istDate.toISOString().replace(/\.\d{3}Z/, "+05:30");
 };
 
-const insertAdAfterFirstParagraph = (content) => {
+const insertReadArticleAfterSecondParagraph = (content, relatedArticles, currentPostId) => {
     const paragraphs = content.split("</p>");
-    if (paragraphs.length > 1) {
-        paragraphs.splice(1, 0, `
-            <div class="adsense-container">
-                <ins class="adsbygoogle"
-                    style="display:inline-block;width:300px;height:250px"
-                    data-ad-client="ca-pub-6466761575770733"
-                    data-ad-slot="5053362651"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true">
-                </ins>
+
+    // Filter out the current article from related articles
+    const filteredArticles = relatedArticles.filter(article => article.id !== currentPostId);
+
+    // Pick a random article from the filtered list
+    const randomArticle = filteredArticles.length > 0 
+        ? filteredArticles[Math.floor(Math.random() * filteredArticles.length)] 
+        : null;
+
+    if (randomArticle) {
+    const articleTitle = randomArticle.title.rendered;
+    const articleUrl = `/post/${encodeURIComponent(randomArticle.title.rendered)}-${randomArticle.id}`;
+
+    if (paragraphs.length > 2) {
+        paragraphs.splice(2, 0, `
+            <div style="
+                background-color: #f8f9fa; 
+                border-left: 4px solid #007bff; 
+                padding: 10px; 
+                margin: 15px 0; 
+                font-size: 16px;
+            ">
+                <strong>Also Read: </strong> 
+                <a href="${articleUrl}">
+                    "${articleTitle}"
+                </a>
             </div>
         `);
     }
+}
+
+
     return paragraphs.join("</p>");
 };
 
-// Function to clean the excerpt by removing HTML tags, links, and "&hellip;"
+
+
+
+
+
 const cleanExcerpt = (htmlContent) => {
     return htmlContent
-        .replace(/<a[^>]*>(.*?)<\/a>/g, "$1") // Remove links but keep text inside
-        .replace(/<[^>]+>/g, "") // Remove all HTML tags
-        .replace(/Read more/gi, "") // Remove "Read more" text
-        .replace(/&hellip;/g, "") // Remove "&hellip;"
+        .replace(/<a[^>]*>(.*?)<\/a>/g, "$1")
+        .replace(/<[^>]+>/g, "")
+        .replace(/Read more/gi, "")
+        .replace(/&hellip;/g, "")
         .trim();
 };
 
-const PostPage = ({ post, author, categoryName, canonicalUrl }) => {
+const PostPage = ({ post, author, categoryName, canonicalUrl, relatedArticles }) => {
     const router = useRouter();
 
     useEffect(() => {
@@ -75,14 +98,14 @@ const PostPage = ({ post, author, categoryName, canonicalUrl }) => {
 
     const authorUrl = `https://newsstate24.com/author/${slugify(author.name.toLowerCase())}`;
 
-const breadcrumbs = [
-    { name: "Home", url: "https://newsstate24.com" },
-    { name: categoryName, url: `/post/${slugify(categoryName.toLowerCase())}` }, // Corrected category link
-    { name: post.title.rendered, url: canonicalUrl },
-];
+    const breadcrumbs = [
+        { name: "Home", url: "https://newsstate24.com" },
+        { name: categoryName, url: `/post/${slugify(categoryName.toLowerCase())}` },
+        { name: post.title.rendered, url: canonicalUrl },
+    ];
 
+    const contentWithReadArticle = insertReadArticleAfterSecondParagraph(post.content.rendered, relatedArticles);
 
-    const contentWithoutAd = post.content.rendered;
 
     return (
         <>
@@ -98,7 +121,7 @@ const breadcrumbs = [
             </Head>
 
             <Header />
-            <Navbar /> 
+            <Navbar />
             <Breadcrumb breadcrumbs={breadcrumbs} />
             <ArticleSchema
                 post={post}
@@ -115,7 +138,7 @@ const breadcrumbs = [
                         <p className={styles.excerpt}>{cleanExcerpt(post.excerpt.rendered)}</p>
 
                         <p className={styles.articleMeta}>
-                                Published: {new Date(post.date).toLocaleString("en-IN", { 
+                            Published: {new Date(post.date).toLocaleString("en-IN", { 
                                 weekday: "long", 
                                 year: "numeric", 
                                 month: "long", 
@@ -125,7 +148,7 @@ const breadcrumbs = [
                                 timeZone: "Asia/Kolkata" 
                             })} 
                             {` | `} 
-                                Modified: {new Date(post.modified).toLocaleString("en-IN", { 
+                            Modified: {new Date(post.modified).toLocaleString("en-IN", { 
                                 weekday: "long", 
                                 year: "numeric", 
                                 month: "long", 
@@ -135,7 +158,7 @@ const breadcrumbs = [
                                 timeZone: "Asia/Kolkata" 
                             })}
                             {` | `} 
-                              By: <a href={authorUrl} className={styles.authorLink} target="_blank" rel="noopener noreferrer">
+                            By: <a href={authorUrl} className={styles.authorLink} target="_blank" rel="noopener noreferrer">
                                 {author.name}
                             </a>
                             {` | `}
@@ -144,7 +167,42 @@ const breadcrumbs = [
 
                         <img src={featuredImage} alt={post.title.rendered} className={styles.featuredImage} loading="lazy" />
 
-                        <div className={styles.content} dangerouslySetInnerHTML={{ __html: contentWithoutAd }} />
+                        <div className={styles.content} dangerouslySetInnerHTML={{ __html: contentWithReadArticle }} />
+
+                      {/* ✅ Styled Related Articles Section with Bullets */}
+<div className={styles.relatedArticles}>
+    <h3 style={{
+        fontSize: "20px", 
+        fontWeight: "bold", 
+        borderBottom: "2px solid #333", 
+        paddingBottom: "5px",
+        marginBottom: "10px",
+        color: "red"
+		
+    }}>Related Articles</h3>
+
+    <ul style={{
+    listStyleType: "disc", 
+    paddingLeft: "20px"
+}}>
+    {relatedArticles.map((article) => (
+        <li key={article.id} style={{ marginBottom: "8px" }}>
+            <a href={`/post/${encodeURIComponent(article.title.rendered)}-${article.id}`} 
+               style={{
+                   fontSize: "18px", 
+                   fontWeight: "500", 
+                   color: "#007bff", 
+                   textDecoration: "none"
+               }}>
+                {article.title.rendered}
+            </a>
+        </li>
+    ))}
+      </ul>
+  </div>
+
+
+
                         <div className={styles.separator}></div>
 
                         <h3>About Author</h3>
@@ -176,41 +234,34 @@ const breadcrumbs = [
 
 export async function getServerSideProps(context) {
     const { slug } = context.params;
-    const { amp } = context.query;
-
-    if (amp === "1" || amp !== undefined) {
-        return { notFound: true };
-    }
-
     const postId = slug.split("-").pop();
-    const res = await fetch(`https://khabar24live.com/wp-json/wp/v2/posts/${postId}?_embed=wp:featuredmedia`);
-    const post = await res.json();
 
-    if (!post || post.code === "rest_post_invalid_id") {
-        return { notFound: true };
-    }
+    try {
+        const res = await fetch(`https://khabar24live.com/wp-json/wp/v2/posts/${postId}?_embed=wp:featuredmedia`);
+        const post = await res.json();
 
-    const authorRes = await fetch(`https://khabar24live.com/wp-json/wp/v2/users/${post.author}`);
-    const author = await authorRes.json();
+        if (!post || post.code === "rest_post_invalid_id") {
+            return { notFound: true };
+        }
 
-    let categoryName = "Uncategorized"; 
-    if (post.categories.length > 0) {
+        const authorRes = await fetch(`https://khabar24live.com/wp-json/wp/v2/users/${post.author}`);
+        const author = await authorRes.json();
+
         const categoryId = post.categories[0];
         const categoryRes = await fetch(`https://khabar24live.com/wp-json/wp/v2/categories/${categoryId}`);
         const categoryData = await categoryRes.json();
-        categoryName = categoryData.name || "Uncategorized";
+        const categoryName = categoryData.name || "Uncategorized";
+
+        const relatedRes = await fetch(`https://khabar24live.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=5`);
+        const relatedArticles = await relatedRes.json();
+
+        return { 
+            props: { post, author, categoryName, relatedArticles }
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return { notFound: true };
     }
-
-    const canonicalUrl = `https://${context.req.headers.host}/post/${slug}`;
-
-    return { 
-        props: { 
-            post, 
-            author, 
-            categoryName, 
-            canonicalUrl 
-        } 
-    };
 }
 
 export default PostPage;

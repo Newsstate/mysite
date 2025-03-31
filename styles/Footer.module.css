@@ -13,6 +13,10 @@
     margin: 0 auto;
 }
 
+.mobileAdContainer {
+      display:none;
+    }
+
 .section {
     flex: 1;
     text-align: center;

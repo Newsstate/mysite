@@ -47,11 +47,16 @@ export default function CategoryPage({ categoryId, categoryName }) {
         return <p>Loading...</p>;
     }
 
+    const canonicalUrl = `https://www.newsstate24.com/category/${router.query.slug}`;
+
     return (
         <>
             <Head>
                 <title>{categoryName} News - Newsstate24</title>
                 <meta name="description" content={`Latest ${categoryName} news updates on Newsstate24.`} />
+                <link rel="canonical" href={canonicalUrl} />
+				<html lang="hi" />
+				 <meta name="robots" content="index, follow" />
             </Head>
 
             <Header />
