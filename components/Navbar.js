@@ -17,7 +17,7 @@ export default function Navbar() {
         { id: "h", name: "लाइफस्टाइल", slug: "lifestyle", url: "https://newsstate24.com/category/lifestyle" },
         { id: "i", name: "लेटेस्ट", slug: "latest-news", url: "https://newsstate24.com/category/latest-news" },
         { id: "j", name: "शहर और राज्य", slug: "local", url: "https://newsstate24.com/category/local" },
-        { id: "k", name: "शिक्षा", slug: "education", url: "https://newsstate24.com/category/education" },
+        { id: "k", name: "शिक्षा", slug: "results", url: "https://newsstate24.com/category/results" },
     ];
 
     return (

@@ -1,3 +1,4 @@
+import { useState } from 'react'; // Import useState at the top
 import { useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -8,11 +9,13 @@ import PostCard from '@/components/PostCard';
 import AdComponent from '@/components/AdComponent';
 import styles from '@/styles/Home.module.css';
 
+
 export default function Home({ newsData = [] }) {
     // Filter posts for the left sidebar
-    const cityAndStateNews = newsData.filter(news => news.category === "शहर और राज्य").slice(0, 3);
-	 const education = newsData.filter(news => news.category === "शिक्षा").slice(0, 3);
-
+    const cityAndStateNews = newsData.filter(news => news.category === "शहर और राज्य").slice(0, 10 );
+	 const cricket = newsData.filter(news => news.category === "क्रिकेट").slice(0, 4 );
+	 const vrattyohar = newsData.filter(news => news.category === "आस्था").slice(0, 4 );
+	 const national = newsData.filter(news => news.category === "देश").slice(0, 10 );
     // Function to create slugs from titles
     const createSlug = (title) => {
         return encodeURIComponent(title.trim().replace(/\s+/g, '-'));
@@ -42,29 +45,27 @@ export default function Home({ newsData = [] }) {
                 <main className={styles.contentArea}>
                     {/* Left Sidebar */}
                     <aside className={styles.leftColumn}>
-                        <h2>शहर और राज्य</h2>
-                        {cityAndStateNews.map((news) => {
-                            const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
-                            return (
-                                <Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
-                                    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
-                                    <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
-                                </Link>
-                            );
-                        })}
-						 <h2>education</h2>
-                             {education.map((news) => {
-                               const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
-                                 return (
-                                <Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
-                                    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
-                                    <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
-                                </Link>
-                            );
-                        })}
-                    </aside>
+    <h2>शहर और राज्य</h2>
+    {cityAndStateNews.map((news) => {
+        const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
+        return (
+           <Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
+    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
+    <div className={styles.leftColumnCardContent}>
+        <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
+        <div className={styles.metaInfo}>
+            <span className={styles.postDate}>{news.publishedAt}</span>
+            <span className={styles.categoryLabel}>{news.category}</span>
+        </div>
+    </div>
+</Link>
+	
+        );
+    })}
+</aside>
 
                     {/* Main Content */}
+					
                     <section className={styles.mainContent}>
                         {newsData.length > 0 && (
                             <div className={styles.featuredNews}>
@@ -81,7 +82,7 @@ export default function Home({ newsData = [] }) {
                         )}
 
                         <div className={styles.newsList}>
-                            {newsData.slice(1, 70).map((post) => (
+                            {newsData.slice(1,7).map((post) => (
                                 <PostCard 
                                     key={post.id} 
                                     id={post.id} 
@@ -93,7 +94,26 @@ export default function Home({ newsData = [] }) {
                                 />
                             ))}
                         </div>
-						
+						<h2>देश</h2>
+{national.length > 0, 10 ? (
+    national.map((news) => {
+        const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
+        return (
+            <Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
+                <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
+                <div className={styles.leftColumnCardContent}>
+                    <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
+                    <div className={styles.metaInfo}>
+                        <span className={styles.postDate}>{news.publishedAt}</span>
+                        <span className={styles.categoryLabel}>{news.category}</span>
+                    </div>
+                </div>
+            </Link>
+        );
+    })
+) : (
+    <p>कोई खबर उपलब्ध नहीं है।</p>
+)}
                     </section>
 
                     {/* Right Sidebar */}
@@ -106,9 +126,121 @@ export default function Home({ newsData = [] }) {
                             </ins>
                         </div>
 
-                        <h2>Trending</h2>
+                        <h2>ट्रेंडिंग</h2>
                         <div className={styles.newsList}>
                             {newsData.slice(4, 7).map((post) => (
+                                <PostCard 
+                                    key={post.id} 
+                                    id={post.id} 
+                                    title={post.title} 
+                                    image={post.image} 
+                                    category={post.category} 
+                                    categoryLink={`/category/${post.category}`} 
+                                    date={post.publishedAt}
+                                />
+                            ))}
+                        </div>
+<h2>आस्था</h2>
+										{vrattyohar.map((news) => {
+											const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
+													return (
+														<Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
+    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
+    <div className={styles.leftColumnCardContent}>
+        <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
+        <div className={styles.metaInfo}>
+            <span className={styles.postDate}>{news.publishedAt}</span>
+            <span className={styles.categoryLabel}>{news.category}</span>
+        </div>
+    </div>
+</Link>
+														);
+										}		)}
+										
+										
+										
+                        {/* Google AdSense Ad */}
+                        
+						<div className={styles.widget}>
+                           
+                        </div>
+                    </aside>
+                </main>
+            </div>
+            
+			<div className={styles.container}>
+                <main className={styles.contentArea}>
+                    {/* Left Sidebar */}
+                    <aside className={styles.leftColumn}>
+                       
+						 <h2>क्रिकेट</h2>
+										{cricket.map((news) => {
+											const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
+													return (
+														<Link href={`/post/${createSlug(news.title)}-${news.id}`} className={styles.leftColumnCard}>
+    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
+    <div className={styles.leftColumnCardContent}>
+        <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
+        <div className={styles.metaInfo}>
+            <span className={styles.postDate}>{news.publishedAt}</span>
+            <span className={styles.categoryLabel}>{news.category}</span>
+        </div>
+    </div>
+</Link>
+
+														);
+										}		)}
+                    </aside>
+
+                    {/* Main Content */}
+								
+                     <section className={styles.mainContent}>
+                        {newsData.length > 0 && (
+                            <div className={styles.featuredNews}>
+                                {(() => {
+                                    const postSlug = `/post/${createSlug(newsData[0].title)}-${newsData[0].id}`;
+                                    return (
+                                        <Link href={postSlug}>
+                                            <img src={newsData[0]?.image || '/fallback-image.jpg'} alt={newsData[0]?.title || 'News'} className={styles.featuredImage} />
+                                            <h1>{newsData[0]?.title || 'No Title Available'}</h1>
+                                        </Link>
+                                    );
+                                })()}
+                            </div>
+                        )}
+
+                        <div className={styles.newsList}>
+                            {newsData.slice(0, 10).map((post) => (
+                                <PostCard 
+                                       key={post.id} 
+										id={post.id} 
+										title={post.title} 
+										image={post.image} 
+										category={post.category} 
+										categorySlug={post.categorySlug} // Pass category slug
+										categoryLink={`/category/${createSlug(post.category)}`} 
+										date={post.publishedAt}
+										selectedCategorySlug={"lifestyle"} // Add selected category filter
+                                />
+                            ))}
+                        </div>
+						
+                        </section>
+
+                    {/* Right Sidebar */}
+					
+                    <aside className={styles.rightColumn}>
+                        <div className={styles.widget}>
+                            <ins className="adsbygoogle"
+                                style={{ display: "inline-block", width: "300px", height: "250px" }}
+                                data-ad-client="ca-pub-6466761575770733"
+                                data-ad-slot="2480605015">
+                            </ins>
+                        </div>
+
+                        <h2>Trending</h2>
+                        <div className={styles.newsList}>
+                            {newsData.slice(3, 6).map((post) => (
                                 <PostCard 
                                     key={post.id} 
                                     id={post.id} 
@@ -133,7 +265,7 @@ export default function Home({ newsData = [] }) {
                     </aside>
                 </main>
             </div>
-            
+			
             <Footer />
         </>
     );

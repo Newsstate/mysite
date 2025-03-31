@@ -176,64 +176,86 @@
     }
 }
 
+
+
+
+
+
 /* Home.module.css */
 
 /* New Card for Left Column */
+
+
 .leftColumnCard {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #222;
+    padding: 6px;
+    border-bottom: 1px solid #ddd; /* Separates list items */
+    gap: 10px;
+    transition: background 0.3s ease-in-out;
 }
 
 .leftColumnCard:hover {
-    transform: translateY(-5px);
+    background: #f9f9f9;
 }
 
+/* Image (Left Side) */
 .leftColumnCardImage {
-    width: 100%;
-    height: auto;
-    border-bottom: 1px solid #ddd;
+    width: 70px;
+    height: 50px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
 }
 
+/* Content (Right Side) */
+.leftColumnCardContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Headline */
 .leftColumnCardTitle {
-    font-size: 15px;
-    margin: 13px;
+    font-size: 16px;
+    font-weight: bold;
     color: #333;
-    text-decoration: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 3px;
+    line-height: 1.4;
+}
+
+/* Meta Info (Date & Category) */
+.metaInfo {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+    gap: 8px; /* Adjust spacing */
+}
+
+/* Category Label */
+.categoryLabel {
+    background-color: #ff6600;
+    color: #fff;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
     font-weight: bold;
 }
 
-.leftColumnCard a {
-    text-decoration: none;
+/* Post Date */
+.postDate {
+    font-size: 12px;
+    color: #888;
 }
 
-.leftColumnCard a:hover .leftColumnCardTitle {
-    color: #d9534f;
-}
 
-.leftColumnCard {
-    display: block;
-    text-decoration: none;
-    color: #222;
-    transition: color 0.3s;
-}
 
-.leftColumnCard:hover {
-    color: #555;
-}
-
-/* News List */
-.newsList {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 16px;
-    justify-content: start;
-    align-items: start;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-}
