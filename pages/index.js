@@ -26,7 +26,14 @@ export default function Home({ newsData = [] }) {
                 <meta property="og:title" content="Newsstate24 - Latest News" />
                 <meta property="og:image" content="https://Newsstate24.com/og-image.jpg" />
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733" crossOrigin="anonymous"></script>
-            </Head>
+				  {/* Canonical URL */}
+                <link rel="canonical" href="https://newsstate24.com/" />
+
+                {/* Language Declaration */}
+                <html lang="hi" />
+				 <meta name="robots" content="index, follow" />
+				 
+		   </Head>
             
             <Header />
             <Navbar />
