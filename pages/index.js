@@ -126,14 +126,14 @@ const business = newsData.filter(news => news.category === "कारोबा�
                     {/* Right Sidebar */}
 					
                     <aside className={styles.rightColumn}>
-					
-                        <div className={styles.widget}>
+					<div className={styles.widget}>
                             <ins className="adsbygoogle"
                                 style={{ display: "inline-block", width: "300px", height: "250px" }}
                                 data-ad-client="ca-pub-6466761575770733"
                                 data-ad-slot="2480605015">
                             </ins>
                         </div>
+                        
 
                         
 						<div className={styles.categorytop}>

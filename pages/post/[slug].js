@@ -71,15 +71,7 @@
 	const PostPage = ({ post, author, categoryName, canonicalUrl, relatedArticles }) => {
 		const router = useRouter();
 
-		useEffect(() => {
-			if (typeof window !== "undefined") {
-				try {
-					(window.adsbygoogle = window.adsbygoogle || []).push({});
-				} catch (e) {
-					console.error("AdSense error:", e);
-				}
-			}
-		}, []);
+		
 
 		if (router.isFallback) {
 			return <h2 className={styles.loading}>लोड हो रहा है...</h2>;
