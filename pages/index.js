@@ -12,12 +12,13 @@ import styles from '@/styles/Home.module.css';
 
 export default function Home({ newsData = [] }) {
     // Filter posts for the left sidebar
-    const cityAndStateNews = newsData.filter(news => news.category === "शहर और राज्य").slice(0, 10 );
-	 const cricket = newsData.filter(news => news.category === "क्रिकेट").slice(0, 7 );
+    const cityAndStateNews = newsData.filter(news => news.category === "शहर और राज्य").slice(2, 10 );
+	 const cricket = newsData.filter(news => news.category === "क्रिकेट").slice(2, 7 );
 	 const vrattyohar = newsData.filter(news => news.category === "आस्था").slice(0, 4 );
 const business = newsData.filter(news => news.category === "कारोबार").slice(0, 4);
 	 const auto = newsData.filter(news => news.category === "ऑटो").slice(0, 3);
 	 const edu = newsData.filter(news => news.category === "शिक्षा").slice(0, 8);
+	 const big = newsData.filter(news => news.category === "शहर और राज्य").slice(0, 1);
 	  
     // Function to create slugs from titles
     const createSlug = (title) => {
@@ -50,20 +51,23 @@ const business = newsData.filter(news => news.category === "कारोबा�
                     {/* Left Sidebar */}
 					
                     <aside className={styles.leftColumn}>
-					{newsData.length > 10 && (
-                            <div className={styles.featuredNewsleft}>
-                                {(() => {
-                                    const postSlug = `/post/${createSlug(newsData[0].title)}-${newsData[0].id}`;
-                                    return (
-                                        <Link href={postSlug}>
-                                            <img src={newsData[0]?.image || '/fallback-image.jpg'} alt={newsData[0]?.title || 'News'} className={styles.featuredImage} />
-                                            <h2>{newsData[1]?.title || 'No Title Available'}</h2>
-                                        </Link>
-                                    );
-                                })()}
-                            </div>
-							
-                        )}
+					
+ 	{big.map((news) => {
+											const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
+													return (
+														<Link key={news.id} href={postSlug} className={styles.leftColumnCardbig}>
+    <img src={news.image} alt={news.title} className={styles.leftColumnCardbigImage} />
+    <div className={styles.leftColumnCardContentbig}>
+        <h3 className={styles.leftColumnCardTitlebig}>{news.title}</h3>
+        <div className={styles.metaInfo}>
+            <span className={styles.postDate}>{news.publishedAt}</span>
+            <span className={styles.categoryLabel}>{news.category}</span>
+        </div>
+    </div>
+</Link>
+														);
+										}		)}
+									
     <div className={styles.categorytop}>
 	<p>शहर और राज्य</p>
 	</div>
@@ -106,7 +110,6 @@ const business = newsData.filter(news => news.category === "कारोबा�
                             </div>
 							
                         )}
- 
                         <div className={styles.newsList}>
                             {newsData.slice(1,10).map((post) => (
                                 <PostCard 
@@ -119,8 +122,28 @@ const business = newsData.filter(news => news.category === "कारोबा�
                                     date={post.publishedAt}
                                 />
                             ))}
-                        </div>
+                        </div> <div className={styles.newsList}>
+ 
 						
+                            
+                        </div>
+						 <div className={styles.newsList}>
+                            {newsData.slice(1,10).map((post) => (
+                                <PostCard 
+                                    key={post.id} 
+                                    id={post.id} 
+                                    title={post.title} 
+                                    image={post.image} 
+                                    category={post.category} 
+                                    categoryLink={`/category/${post.category}`} 
+                                    date={post.publishedAt}
+                                />
+                            ))}
+                        </div> <div className={styles.newsList}>
+ 
+						
+                            
+                        </div>
                     </section>
 
                     {/* Right Sidebar */}
@@ -171,7 +194,10 @@ const business = newsData.filter(news => news.category === "कारोबा�
 														);
 										}		)}
 										
-										
+										<div className={styles.categorytop}>
+	<p>Big Story</p>
+	</div>
+									
 										
                         {/* Google AdSense Ad */}
                         
