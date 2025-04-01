@@ -1,4 +1,3 @@
-import { useState } from 'react'; // Import useState at the top
 import { useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -8,6 +7,7 @@ import Navbar from '@/components/Navbar';
 import PostCard from '@/components/PostCard';
 import AdComponent from '@/components/AdComponent';
 import styles from '@/styles/Home.module.css';
+
 
 
 export default function Home({ newsData = [] }) {
@@ -23,7 +23,16 @@ const business = newsData.filter(news => news.category === "कारोबा�
     const createSlug = (title) => {
         return encodeURIComponent(title.trim().replace(/\s+/g, '-'));
     };
-
+   // Solution 2: Refresh ads dynamically
+    useEffect(() => {
+        try {
+            if (window.adsbygoogle) {
+                window.adsbygoogle.push({});
+            }
+        } catch (error) {
+            console.error("AdSense error:", error);
+        }
+    }, [newsData]);
     return (
         <>
 		

@@ -9,6 +9,24 @@
 	import slugify from "slugify";
 	import React, { useEffect, useState } from "react";
 	import Navbar from '@/components/Navbar'; 
+	import Image from "next/image";
+	
+
+useEffect(() => {
+  if (typeof window !== "undefined" && window.adsbygoogle) {
+    try {
+      const ads = document.querySelectorAll(".adsbygoogle");
+      ads.forEach((ad) => {
+        if (!ad.dataset.loaded) { // Check if ad is already loaded
+          window.adsbygoogle.push({});
+          ad.dataset.loaded = "true"; // Mark as loaded
+        }
+      });
+    } catch (e) {
+      console.error("AdSense error:", e);
+    }
+  }
+}, []);
 
 	const convertToIST = (date) => {
 		if (!date) return "";
@@ -72,14 +90,17 @@
 		const router = useRouter();
 
 		useEffect(() => {
-			if (typeof window !== "undefined") {
-				try {
-					(window.adsbygoogle = window.adsbygoogle || []).push({});
-				} catch (e) {
-					console.error("AdSense error:", e);
-				}
-			}
-		}, []);
+  if (typeof window !== "undefined" && window.adsbygoogle) {
+    try {
+      if (!window.adsInitialized) { // Ensure ads are initialized only once
+        window.adsbygoogle.push({});
+        window.adsInitialized = true; 
+      }
+    } catch (e) {
+      console.error("AdSense error:", e);
+    }
+  }
+}, []);
 
 		if (router.isFallback) {
 			return <h2 className={styles.loading}>लोड हो रहा है...</h2>;
@@ -119,6 +140,7 @@
 					<link rel="canonical" href={canonicalUrl} />
 					<meta property="article:published_time" content={publishedDate} />
 					<meta property="article:modified_time" content={modifiedDate} />
+					<link rel="preload" href="/styles/Article.module.css" as="style" />
 				</Head>
 
 				<Header />
@@ -130,6 +152,8 @@
 					publishedDate={publishedDate}
 					modifiedDate={modifiedDate}
 					canonicalUrl={canonicalUrl}
+					
+
 				/>
 
 				<div className={styles.container}>
