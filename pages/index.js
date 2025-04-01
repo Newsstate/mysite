@@ -16,7 +16,8 @@ export default function Home({ newsData = [] }) {
 	 const cricket = newsData.filter(news => news.category === "क्रिकेट").slice(0, 7 );
 	 const vrattyohar = newsData.filter(news => news.category === "आस्था").slice(0, 4 );
 const business = newsData.filter(news => news.category === "कारोबार").slice(0, 4);
-	 const lifestyle = newsData.filter(news => news.category === "लाइफस्टाइल").slice(0, 9);
+	 const auto = newsData.filter(news => news.category === "ऑटो").slice(0, 3);
+	 const edu = newsData.filter(news => news.category === "शिक्षा").slice(0, 8);
 	  
     // Function to create slugs from titles
     const createSlug = (title) => {
@@ -47,8 +48,26 @@ const business = newsData.filter(news => news.category === "कारोबा�
             <div className={styles.container}>
                 <main className={styles.contentArea}>
                     {/* Left Sidebar */}
+					
                     <aside className={styles.leftColumn}>
-    <h2>शहर और राज्य</h2>
+					{newsData.length > 10 && (
+                            <div className={styles.featuredNewsleft}>
+                                {(() => {
+                                    const postSlug = `/post/${createSlug(newsData[0].title)}-${newsData[0].id}`;
+                                    return (
+                                        <Link href={postSlug}>
+                                            <img src={newsData[0]?.image || '/fallback-image.jpg'} alt={newsData[0]?.title || 'News'} className={styles.featuredImage} />
+                                            <h2>{newsData[1]?.title || 'No Title Available'}</h2>
+                                        </Link>
+                                    );
+                                })()}
+                            </div>
+							
+                        )}
+    <div className={styles.categorytop}>
+	<p>शहर और राज्य</p>
+	</div>
+
     {cityAndStateNews.map((news) => {
         const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
         return (
@@ -61,11 +80,14 @@ const business = newsData.filter(news => news.category === "कारोबा�
             <span className={styles.categoryLabel}>{news.category}</span>
         </div>
     </div>
+	
 </Link>
 	
         );
     })}
+	
 </aside>
+
 
                     {/* Main Content */}
 					
@@ -82,8 +104,9 @@ const business = newsData.filter(news => news.category === "कारोबा�
                                     );
                                 })()}
                             </div>
+							
                         )}
-
+ 
                         <div className={styles.newsList}>
                             {newsData.slice(1,10).map((post) => (
                                 <PostCard 
@@ -101,7 +124,9 @@ const business = newsData.filter(news => news.category === "कारोबा�
                     </section>
 
                     {/* Right Sidebar */}
+					
                     <aside className={styles.rightColumn}>
+					
                         <div className={styles.widget}>
                             <ins className="adsbygoogle"
                                 style={{ display: "inline-block", width: "300px", height: "250px" }}
@@ -110,7 +135,10 @@ const business = newsData.filter(news => news.category === "कारोबा�
                             </ins>
                         </div>
 
-                        <h2>ट्रेंडिंग</h2>
+                        
+						<div className={styles.categorytop}>
+	<p>ट्रेंडिंग</p>
+	</div>
                         <div className={styles.newsList}>
                             {newsData.slice(4, 7).map((post) => (
                                 <PostCard 
@@ -124,7 +152,9 @@ const business = newsData.filter(news => news.category === "कारोबा�
                                 />
                             ))}
                         </div>
-<h2>आस्था</h2>
+<div className={styles.categorytop}>
+	<p>आस्था</p>
+	</div>
 										{vrattyohar.map((news) => {
 											const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
 													return (
@@ -157,7 +187,9 @@ const business = newsData.filter(news => news.category === "कारोबा�
                     {/* Left Sidebar */}
                     <aside className={styles.leftColumn}>
                        
-						 <h2>क्रिकेट</h2>
+						<div className={styles.categorytop}>
+	<p>क्रिकेट</p>
+	</div>
 										{cricket.map((news) => {
 											const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
 													return (
@@ -174,7 +206,10 @@ const business = newsData.filter(news => news.category === "कारोबा�
 
 														);
 										}		)}
-										<h2>कारोबार</h2>
+									
+										<div className={styles.categorytop}>
+	<p>कारोबार</p>
+	</div>
 										{business.map((news) => {
 											const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
 													return (
@@ -208,7 +243,7 @@ const business = newsData.filter(news => news.category === "कारोबा�
                 categorySlug={post.categorySlug} // Pass category slug
                 categoryLink={`/category/${createSlug(post.category)}`} 
                 date={post.publishedAt}
-                selectedCategorySlug={"lifestyle"} // Add selected category filter
+                selectedCategorySlug={"auto"} // Add selected category filter
             />
         ))}
     </div>
@@ -225,8 +260,11 @@ const business = newsData.filter(news => news.category === "कारोबा�
                                 data-ad-slot="2480605015">
                             </ins>
                         </div>
-<h2>लाइफस्टाइल</h2>
-										{lifestyle.map((news) => {
+
+<div className={styles.categorytop}>
+	<p>ऑटो</p>
+	</div>
+										{auto.map((news) => {
 											const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
 													return (
 														<Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
@@ -241,20 +279,25 @@ const business = newsData.filter(news => news.category === "कारोबा�
 </Link>
 														);
 										}		)}
-                        <h2>Trending</h2>
-                        <div className={styles.newsList}>
-                            {newsData.slice(3, 6).map((post) => (
-                                <PostCard 
-                                    key={post.id} 
-                                    id={post.id} 
-                                    title={post.title} 
-                                    image={post.image} 
-                                    category={post.category} 
-                                    categoryLink={`/category/${post.category}`} 
-                                    date={post.publishedAt}
-                                />
-                            ))}
-                        </div>
+                      
+						<div className={styles.categorytop}>
+	<p>शिक्षा</p>
+	</div>
+										{edu.map((news) => {
+											const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
+													return (
+														<Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
+    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
+    <div className={styles.leftColumnCardContent}>
+        <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
+        <div className={styles.metaInfo}>
+            <span className={styles.postDate}>{news.publishedAt}</span>
+            <span className={styles.categoryLabel}>{news.category}</span>
+        </div>
+    </div>
+</Link>
+														);
+										}		)}
 
                         {/* Google AdSense Ad */}
                         

@@ -8,7 +8,7 @@ export async function handler(req, res) {
         const totalPages = Math.ceil(totalPosts / perPage);
 
         // Base URL of your site (adjust if necessary)
-        const baseUrl = 'https://khabar24live.com';
+        const baseUrl = 'https://newsstate24.com';
 
         // Function to fetch posts with pagination
         const fetchPosts = async (page) => {
@@ -66,7 +66,7 @@ export async function handler(req, res) {
                     <lastmod>${lastmod}</lastmod>
                     <news:news>
                         <news:publication>
-                            <news:name>khabar24live</news:name>
+                            <news:name>newsstate24</news:name>
                             <news:language>${language}</news:language>
                         </news:publication>
                         <news:publication_date>${publicationDate}</news:publication_date>
