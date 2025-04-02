@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import PostCard from '@/components/PostCard';
 import styles from '@/styles/Home.module.css';
+import GoogleAd from "@/components/GoogleAd";
 import Script from 'next/script';
 
 export default function Home({ newsData = [] }) {
@@ -35,11 +36,7 @@ export default function Home({ newsData = [] }) {
                 <link rel="canonical" href="https://www.newsstate24.com/" />
             </Head>
 
-           <Script
-    strategy="afterInteractive"
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733"
-    crossOrigin="anonymous"
-/>
+      
 
             <Header />
             <Navbar />
@@ -103,13 +100,7 @@ export default function Home({ newsData = [] }) {
 
                     {/* Right Sidebar */}
                     <aside className={styles.rightColumn}>
-                        <div className={styles.widget}>
-                            <ins className="adsbygoogle"
-                                style={{ display: "inline-block", width: "300px", height: "250px" }}
-                                data-ad-client="ca-pub-6466761575770733"
-                                data-ad-slot="2480605015">
-                            </ins>
-                        </div>
+                       <GoogleAd adSlot="2480605015" adFormat="rectangle" adStyle={{ width: "300", height: "250px" }} />
 
                         <div className={styles.categorytop}><p>ट्रेंडिंग</p></div>
                         <div className={styles.newsList}>
@@ -187,11 +178,7 @@ export default function Home({ newsData = [] }) {
 					
                     <aside className={styles.rightColumn}>
                         <div className={styles.widget}>
-                            <ins className="adsbygoogle"
-                                style={{ display: "inline-block", width: "300px", height: "250px" }}
-                                data-ad-client="ca-pub-6466761575770733"
-                                data-ad-slot="5053362651">
-                            </ins>
+                              <GoogleAd adSlot="5053362651" adFormat="rectangle" adStyle={{ width: "300px", height: "250px" }} />
                         </div>
 
 <div className={styles.categorytop}>

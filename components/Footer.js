@@ -4,13 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaFacebook, FaTwitter, FaInstagram, FaRss } from "react-icons/fa";
 import styles from "@/styles/Footer.module.css";
+import GoogleAd from "@/components/GoogleAd";
 
 export default function Footer() {
-    useEffect(() => {
-        if (window.adsbygoogle) {
-            window.adsbygoogle.push({});
-        }
-    }, []);
+  
 
     return (
         <footer className={styles.footer}>
@@ -66,19 +63,11 @@ export default function Footer() {
 
             {/* Floating Mobile Ad (Will Load Automatically) */}
             <div className={styles.mobileAdContainer}>
-                <ins className="adsbygoogle"
-                    style={{ display: 'block', width: '320px', height: '50px' }}
-                    data-ad-client="ca-pub-6466761575770733"
-                    data-ad-slot="8246126457">
-                </ins>
+              <GoogleAd adSlot="8246126457" adFormat="horizontal" adStyle={{ width: "100%", height: "90px" }} />
             </div>
 
-            {/* Google AdSense Script */}
-            <Script
-                strategy="afterInteractive"
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733"
-                crossOrigin="anonymous"
-            />
+      
+
         </footer>
     );
 }
