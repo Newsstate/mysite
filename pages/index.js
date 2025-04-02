@@ -9,21 +9,11 @@ import styles from '@/styles/Home.module.css';
 import Script from 'next/script';
 
 export default function Home({ newsData = [] }) {
-useEffect(() => {
-    if (typeof window !== "undefined" && window.adsbygoogle) {
-        document.querySelectorAll(".adsbygoogle").forEach((ad) => {
-            if (!ad.dataset.adLoaded) {
-                window.adsbygoogle.push({});
-                ad.dataset.adLoaded = "true"; // Mark ad as loaded
-            }
-        });
-    }
-}, []);
 
 
     // Filter posts
     const cityAndStateNews = newsData.filter(news => news.category === "शहर और राज्य").slice(2, 10);
-    const cricket = newsData.filter(news => news.category === "क्रिकेट").slice(2, 7);
+    const cricket = newsData.filter(news => news.category === "क्रिकेट").slice(2, 8);
     const vrattyohar = newsData.filter(news => news.category === "आस्था").slice(0, 4);
     const business = newsData.filter(news => news.category === "कारोबार").slice(0, 4);
     const auto = newsData.filter(news => news.category === "ऑटो").slice(0, 3);
@@ -138,6 +128,23 @@ useEffect(() => {
                     <aside className={styles.leftColumn}>
                           <div className={styles.categorytop}><p>कारोबार</p></div>
                         {newsData.filter(news => news.category === "कारोबार").slice(0, 4).map((news) => {
+                            const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
+                            return (
+                                <Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
+                                    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
+                                    <div className={styles.leftColumnCardContent}>
+                                        <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
+                                        <div className={styles.metaInfo}>
+                                            <span className={styles.postDate}>{news.publishedAt}</span>
+                                            <span className={styles.categoryLabel}>{news.category}</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+						
+						  <div className={styles.categorytop}><p>क्रिकेट</p></div>
+                        {newsData.filter(news => news.category === "क्रिकेट").slice(1, 4).map((news) => {
                             const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
                             return (
                                 <Link key={news.id} href={postSlug} className={styles.leftColumnCard}>

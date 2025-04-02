@@ -5,19 +5,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaRss } from "react-icons/fa";
 import styles from "@/styles/Footer.module.css";
 
 export default function Footer() {
-    useEffect(() => {
-        const script = document.createElement("script");
-        script.async = true;
-        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733";
-        script.crossOrigin = "anonymous";
-        document.body.appendChild(script);
-
-        script.onload = () => {
-            if (window.adsbygoogle) {
-                window.adsbygoogle.push({});
-            }
-        };
-    }, []);
+    
 
     return (
         <footer className={styles.footer}>
@@ -35,7 +23,7 @@ export default function Footer() {
                         <Link href="https://newsstate24.com/api/sitemap.xml" target="_blank"><FaRss className={styles.icon} /></Link>
                     </div>
                 </div>
-                
+               
                 {/* Middle Section: Important Links */}
                 <div className={styles.section}>
                     <Link href="/Privacy" className={styles.button}>Privacy</Link>
@@ -72,6 +60,7 @@ export default function Footer() {
             </div>
 
             {/* Floating Mobile Ad */}
+			
             <div className={styles.mobileAdContainer}>
                 <ins className="adsbygoogle"
                     style={{ display: 'inline-block', width: '320px', height: '50px' }}
