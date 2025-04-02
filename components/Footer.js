@@ -1,19 +1,14 @@
 import { useEffect } from "react";
+import Script from "next/script";
 import Link from "next/link";
 import Image from "next/image";
 import { FaFacebook, FaTwitter, FaInstagram, FaRss } from "react-icons/fa";
 import styles from "@/styles/Footer.module.css";
 
 export default function Footer() {
-
     useEffect(() => {
-        if (typeof window !== "undefined" && window.adsbygoogle) {
-            document.querySelectorAll(".adsbygoogle").forEach((ad) => {
-                if (!ad.dataset.adLoaded) {
-                    window.adsbygoogle.push({});
-                    ad.dataset.adLoaded = "true"; // Prevent duplicate loading
-                }
-            });
+        if (window.adsbygoogle) {
+            window.adsbygoogle.push({});
         }
     }, []);
 
@@ -77,6 +72,13 @@ export default function Footer() {
                     data-ad-slot="8246126457">
                 </ins>
             </div>
+
+            {/* Google AdSense Script */}
+            <Script
+                strategy="afterInteractive"
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733"
+                crossOrigin="anonymous"
+            />
         </footer>
     );
 }

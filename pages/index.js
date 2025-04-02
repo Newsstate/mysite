@@ -9,16 +9,7 @@ import styles from '@/styles/Home.module.css';
 import Script from 'next/script';
 
 export default function Home({ newsData = [] }) {
-useEffect(() => {
-    if (typeof window !== "undefined" && window.adsbygoogle) {
-        document.querySelectorAll(".adsbygoogle").forEach((ad) => {
-            if (!ad.dataset.adLoaded) {
-                window.adsbygoogle.push({});
-                ad.dataset.adLoaded = "true"; // Mark ad as loaded
-            }
-        });
-    }
-}, []);
+
 
 
     // Filter posts
@@ -44,7 +35,11 @@ useEffect(() => {
                 <link rel="canonical" href="https://www.newsstate24.com/" />
             </Head>
 
-           
+           <Script
+    strategy="afterInteractive"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733"
+    crossOrigin="anonymous"
+/>
 
             <Header />
             <Navbar />
