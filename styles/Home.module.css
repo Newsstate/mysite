@@ -1,3 +1,23 @@
+/* Home Page Ads Styles */
+.widget {
+    display: flex;
+    justify-content: center; /* Centers the ad horizontally */
+    align-items: center; /* Centers the ad vertically */
+    margin: 20px auto; /* Adds spacing around the ad */
+    max-width: 100%; /* Ensures responsiveness */
+}
+
+.adsbygoogle {
+    display: block;
+    width: 300px;
+    height: 250px;
+    max-width: 100%; /* Ensures it doesn't overflow on small screens */
+}
+
+
+
+
+
 /* General Layout */
 .container {
     max-width: 1010px;

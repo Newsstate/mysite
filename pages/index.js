@@ -9,6 +9,16 @@ import styles from '@/styles/Home.module.css';
 import Script from 'next/script';
 
 export default function Home({ newsData = [] }) {
+useEffect(() => {
+    if (typeof window !== "undefined" && window.adsbygoogle) {
+        document.querySelectorAll(".adsbygoogle").forEach((ad) => {
+            if (!ad.dataset.adLoaded) {
+                window.adsbygoogle.push({});
+                ad.dataset.adLoaded = "true"; // Mark ad as loaded
+            }
+        });
+    }
+}, []);
 
 
     // Filter posts

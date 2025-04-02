@@ -1,11 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaFacebook, FaTwitter, FaInstagram, FaRss } from "react-icons/fa";
 import styles from "@/styles/Footer.module.css";
 
 export default function Footer() {
-    
+
+    useEffect(() => {
+        if (typeof window !== "undefined" && window.adsbygoogle) {
+            document.querySelectorAll(".adsbygoogle").forEach((ad) => {
+                if (!ad.dataset.adLoaded) {
+                    window.adsbygoogle.push({});
+                    ad.dataset.adLoaded = "true"; // Prevent duplicate loading
+                }
+            });
+        }
+    }, []);
 
     return (
         <footer className={styles.footer}>
@@ -23,7 +33,7 @@ export default function Footer() {
                         <Link href="https://newsstate24.com/api/sitemap.xml" target="_blank"><FaRss className={styles.icon} /></Link>
                     </div>
                 </div>
-               
+
                 {/* Middle Section: Important Links */}
                 <div className={styles.section}>
                     <Link href="/Privacy" className={styles.button}>Privacy</Link>
@@ -33,7 +43,7 @@ export default function Footer() {
                     <Link href="/rss" className={styles.button}>RSS Feed</Link>
                     <Link href="/api/sitemap.xml" className={styles.button}>Sitemap</Link>
                 </div>
-                
+
                 {/* Right Section: Tag Cloud */}
                 <div className={styles.section}>
                     <p>
@@ -59,11 +69,10 @@ export default function Footer() {
                 </div>
             </div>
 
-            {/* Floating Mobile Ad */}
-			
+            {/* Floating Mobile Ad (Will Load Automatically) */}
             <div className={styles.mobileAdContainer}>
                 <ins className="adsbygoogle"
-                    style={{ display: 'inline-block', width: '320px', height: '50px' }}
+                    style={{ display: 'block', width: '320px', height: '50px' }}
                     data-ad-client="ca-pub-6466761575770733"
                     data-ad-slot="8246126457">
                 </ins>

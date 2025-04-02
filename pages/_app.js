@@ -13,13 +13,7 @@ export default function MyApp({ Component, pageProps }) {
                 <meta charSet="UTF-8" />
             </Head>
 
-            {/* Google AdSense Script (Optimized for Fast Loading) */}
-            <Script
-                strategy="afterInteractive"
-                async
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733"
-                crossOrigin="anonymous"
-            />
+            
 
             <Component {...pageProps} />
         </>
