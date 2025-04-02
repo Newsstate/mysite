@@ -11,6 +11,11 @@ export default function MyApp({ Component, pageProps }) {
                 <link rel="icon" href="/logo.png" type="image/x-icon" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta charSet="UTF-8" />
+				<script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733"
+          crossOrigin="anonymous"
+        ></script>
             </Head>
 
             

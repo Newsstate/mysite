@@ -8,19 +8,25 @@ import PostCard from '@/components/PostCard';
 import styles from '@/styles/Home.module.css';
 import GoogleAd from "@/components/GoogleAd";
 import Script from 'next/script';
+import BigNewsCard from "@/components/BigNewsCard.js";
+import CategoryNewsList from "@/components/CategoryNewsList.js";
+import MainContent from '@/components/MainContent';
+import NewsList from '@/components/NewsList.js';
+
 
 export default function Home({ newsData = [] }) {
 
 
 
     // Filter posts
-    const cityAndStateNews = newsData.filter(news => news.category === "शहर और राज्य").slice(2, 10);
-    const cricket = newsData.filter(news => news.category === "क्रिकेट").slice(2, 8);
-    const vrattyohar = newsData.filter(news => news.category === "आस्था").slice(0, 4);
-    const business = newsData.filter(news => news.category === "कारोबार").slice(0, 4);
-    const auto = newsData.filter(news => news.category === "ऑटो").slice(0, 3);
-    const edu = newsData.filter(news => news.category === "शिक्षा").slice(0, 8);
+    const cityAndStateNews = newsData.filter(news => news.category === "शहर और राज्य").slice(0, 4);
     const big = newsData.filter(news => news.category === "शहर और राज्य").slice(0, 1);
+	const cricket = newsData.filter(news => news.category === "क्रिकेट").slice(2, 7);
+    const business = newsData.filter(news => news.category === "कारोबार").slice(0, 4);
+    const auto = newsData.filter(news => news.category === "ऑटो").slice(0, 2);
+    const vrattyohar = newsData.filter(news => news.category === "आस्था").slice(0, 8);
+	const entertainment = newsData.filter(news => news.category === "मनोरंजन").slice(0, 10);
+	
 
     // Function to create slugs from titles
     const createSlug = (title) => encodeURIComponent(title.trim().replace(/\s+/g, '-'));
@@ -40,125 +46,82 @@ export default function Home({ newsData = [] }) {
 
             <Header />
             <Navbar />
-
-            <div className={styles.container}>
+			
+			
+			
+			
+			{/*upper Main */}
+            
+			<div className={styles.container}>
                 <main className={styles.contentArea}>
+				
+				
+				
+				 
+			
+				
+				
+				
+				
                     {/* Left Sidebar */}
-                    <aside className={styles.leftColumn}>
-                        {big.map((news) => (
-                            <Link key={news.id} href={`/post/${createSlug(news.title)}-${news.id}`} className={styles.leftColumnCardbig}>
-                                <img src={news.image} alt={news.title} className={styles.leftColumnCardbigImage} />
-                                <div className={styles.leftColumnCardContentbig}>
-                                    <h3 className={styles.leftColumnCardTitlebig}>{news.title}</h3>
-                                    <div className={styles.metaInfo}>
-                                        <span className={styles.postDate}>{news.publishedAt}</span>
-                                        <span className={styles.categoryLabel}>{news.category}</span>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
+                    <aside className={styles.leftColumn}>{big.map((news) => (<BigNewsCard key={news.id} news={news} />
+))}
 
-                        <div className={styles.categorytop}><p>शहर और राज्य</p></div>
-                        {cityAndStateNews.map((news) => (
-                            <Link key={news.id} href={`/post/${createSlug(news.title)}-${news.id}`} className={styles.leftColumnCard}>
-                                <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
-                                <div className={styles.leftColumnCardContent}>
-                                    <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
-                                    <div className={styles.metaInfo}>
-                                        <span className={styles.postDate}>{news.publishedAt}</span>
-                                        <span className={styles.categoryLabel}>{news.category}</span>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </aside>
+                      
+						
+						<CategoryNewsList title="शहर और राज्य" newsList={cityAndStateNews} />
+						<CategoryNewsList title="लाइफस्टाइल" newsList={cityAndStateNews} />
+						
+
+						
+						
+						
+                      
+              </aside>
+
+
+
+
 
                     {/* Main Content */}
-                    <section className={styles.mainContent}>
-                        {newsData.length > 10 && (
-                            <div className={styles.featuredNews}>
-                                <Link href={`/post/${createSlug(newsData[0].title)}-${newsData[0].id}`}>
-                                    <img src={newsData[0]?.image || '/fallback-image.jpg'} alt={newsData[0]?.title || 'News'} className={styles.featuredImage} />
-                                    <h1>{newsData[0]?.title || 'No Title Available'}</h1>
-                                </Link>
-                            </div>
-                        )}
-                        <div className={styles.newsList}>
-                            {newsData.slice(1, 10).map((post) => (
-                                <PostCard 
-                                    key={post.id} 
-                                    id={post.id} 
-                                    title={post.title} 
-                                    image={post.image} 
-                                    category={post.category} 
-                                    categoryLink={`/category/${post.category}`} 
-                                    date={post.publishedAt}
-                                />
-                            ))}
-                        </div>
-                    </section>
+						"{<MainContent newsData={newsData} createSlug={createSlug} /> }"
+			
+
+					
 
                     {/* Right Sidebar */}
                     <aside className={styles.rightColumn}>
                        <GoogleAd adSlot="2480605015" adFormat="rectangle" adStyle={{ width: "300", height: "250px" }} />
-
-                        <div className={styles.categorytop}><p>ट्रेंडिंग</p></div>
+						
+                        <div className={styles.categorytop}><p>देश</p></div>
                         <div className={styles.newsList}>
-                            {newsData.slice(4, 7).map((post) => (
+                            {newsData.slice(4, 8).map((post) => (
                                 <PostCard 
                                     key={post.id} 
                                     id={post.id} 
                                     title={post.title} 
                                     image={post.image} 
-                                    category={post.category} 
+                                    category={"देश"	} 
                                     categoryLink={`/category/${post.category}`} 
                                     date={post.publishedAt}
                                 />
                             ))}
                         </div>
+						 <GoogleAd adSlot="7528468784" adFormat="rectangle" adStyle={{ width: "300", height: "250px" }} />
                     </aside>
                 </main>
             </div>
 			 <div className={styles.container}>
                 <main className={styles.contentArea}>
                     <aside className={styles.leftColumn}>
-                          <div className={styles.categorytop}><p>कारोबार</p></div>
-                        {newsData.filter(news => news.category === "कारोबार").slice(0, 4).map((news) => {
-                            const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
-                            return (
-                                <Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
-                                    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
-                                    <div className={styles.leftColumnCardContent}>
-                                        <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
-                                        <div className={styles.metaInfo}>
-                                            <span className={styles.postDate}>{news.publishedAt}</span>
-                                            <span className={styles.categoryLabel}>{news.category}</span>
-                                        </div>
-                                    </div>
-                                </Link>
-                            );
-                        })}
-						
-						  <div className={styles.categorytop}><p>क्रिकेट</p></div>
-                        {newsData.filter(news => news.category === "क्रिकेट").slice(1, 4).map((news) => {
-                            const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
-                            return (
-                                <Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
-                                    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
-                                    <div className={styles.leftColumnCardContent}>
-                                        <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
-                                        <div className={styles.metaInfo}>
-                                            <span className={styles.postDate}>{news.publishedAt}</span>
-                                            <span className={styles.categoryLabel}>{news.category}</span>
-                                        </div>
-                                    </div>
-                                </Link>
-                            );
-                        })}
+                         <CategoryNewsList title="कारोबार" newsList={business} />
+				
+						 <CategoryNewsList title="क्रिकेट" newsList={cricket} />
                     </aside>
 
                     <section className={styles.mainContent}>
                         <div className={styles.newsList}>
+						 <CategoryNewsList title="" newsList={cityAndStateNews} />
                             {newsData.slice(10, 100).map((post) => (
                                 <PostCard 
                                     key={post.id} 
@@ -181,43 +144,9 @@ export default function Home({ newsData = [] }) {
                               <GoogleAd adSlot="5053362651" adFormat="rectangle" adStyle={{ width: "300px", height: "250px" }} />
                         </div>
 
-<div className={styles.categorytop}>
-	<p>ऑटो</p>
-	</div>
-										{auto.map((news) => {
-											 const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
-													return (
-														<Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
-    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
-    <div className={styles.leftColumnCardContent}>
-        <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
-        <div className={styles.metaInfo}>
-            <span className={styles.postDate}>{news.publishedAt}</span>
-            <span className={styles.categoryLabel}>{news.category}</span>
-        </div>
-    </div>
-</Link>
-														);
-										}		)}
+						<CategoryNewsList title="मनोरंजन" newsList={entertainment} />
                       
-						<div className={styles.categorytop}>
-	<p>शिक्षा</p>
-	</div>
-										{edu.map((news) => {
-											 const postSlug = `/post/${createSlug(news.title)}-${news.id}`;
-													return (
-														<Link key={news.id} href={postSlug} className={styles.leftColumnCard}>
-    <img src={news.image} alt={news.title} className={styles.leftColumnCardImage} />
-    <div className={styles.leftColumnCardContent}>
-        <h3 className={styles.leftColumnCardTitle}>{news.title}</h3>
-        <div className={styles.metaInfo}>
-            <span className={styles.postDate}>{news.publishedAt}</span>
-            <span className={styles.categoryLabel}>{news.category}</span>
-        </div>
-    </div>
-</Link>
-														);
-										}		)}
+						<CategoryNewsList title="आस्था" newsList={vrattyohar} />
 
                         {/* Google AdSense Ad */}
                         

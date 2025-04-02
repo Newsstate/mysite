@@ -361,11 +361,11 @@
 	
 .leftColumn,
     .rightColumn {
-	order: -3;
+	order: ;
 	}
     .mainContent
 	{
-		order: 0;
+		order: ;
 	}
 	
 }
