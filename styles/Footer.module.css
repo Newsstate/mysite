@@ -82,7 +82,7 @@
 }
 
 @media (max-width: 768px) {
-    .mobileAdContainer {
+    .floatingAdContainer {
         position: fixed;
         bottom: 0;
         left: 50%;

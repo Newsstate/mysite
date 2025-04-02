@@ -9,11 +9,11 @@ const MainContent = ({ newsData, createSlug }) => {
                 <div className={styles.featuredNews}>
                     <Link href={`/post/${createSlug(newsData[0].title)}-${newsData[0].id}`}>
                         <img src={newsData[0]?.image || '/fallback-image.jpg'} alt={newsData[0]?.title || 'News'} className={styles.featuredImage} />
-                        <h1>{newsData[0]?.title || 'No Title Available'}</h1>
+                        <p>{newsData[0]?.title || 'No Title Available'}</p>
                     </Link>
                 </div>
-            )}
-            <div className={styles.newsList}>
+             )}
+             <div className={styles.newsList}>
                 {newsData.slice(1, 10).map((post) => (
                     <PostCard 
                         key={post.id} 

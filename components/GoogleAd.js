@@ -1,25 +1,30 @@
 import { useEffect } from "react";
+import Script from "next/script";
 
-const GoogleAd = ({ adSlot, adFormat = "auto", adStyle = {} }) => {
+export default function GoogleAd({ adSlot, width, height }) {
   useEffect(() => {
-    try {
-      if (typeof window !== "undefined" && window.adsbygoogle) {
-        window.adsbygoogle.push({});
-      }
-    } catch (err) {
-      console.error("AdSense Error:", err);
+    if (window.adsbygoogle) {
+      window.adsbygoogle.push({});
     }
   }, []);
 
   return (
-    <ins
-      className="adsbygoogle"
-      style={{ display: "block", textAlign: "center", ...adStyle }}
-      data-ad-client="ca-pub-6466761575770733"
-      data-ad-slot={adSlot}
-      data-ad-format={adFormat}
-    />
-  );
-};
+    <>
+      {/* Load Google Ads script once (globally) */}
+      <Script
+        strategy="lazyOnload"
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733"
+        crossOrigin="anonymous"
+      />
 
-export default GoogleAd;
+      {/* Ad container */}
+      <ins
+        className="adsbygoogle"
+        style={{ display: "inline-block", width: `${width}px`, height: `${height}px` }}
+        data-ad-client="ca-pub-6466761575770733"
+        data-ad-slot={adSlot}
+      ></ins>
+    </>
+  );
+}

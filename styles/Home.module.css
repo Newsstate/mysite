@@ -15,7 +15,11 @@
 }
 
 
+.categorytopad
 
+{
+	text-align:center;
+}
 
 
 /* General Layout */
@@ -27,9 +31,9 @@
     padding: 0;
     width: 100%;
 }
-.featuredNews h1 {
+.featuredNews p {
     font-size: 20px;  /* Adjust as needed */
-    font-weight: bold;
+    font-weight: 500;
     color: #222;  /* Darker for readability */
     text-decoration: none;
     transition: color 0.3s ease-in-out;
@@ -57,11 +61,11 @@
     flex-shrink: 0;
 	margin-bottom: -20px;
 }
-.leftColumnCardTitlebig
+.leftColumnCardTitle
 {
 	
 	font-size: 20px;
-    font-weight: bold;
+    font-weight: 500;
     color: #333;
    
 }
@@ -75,14 +79,14 @@
 /* Content Areas */
 .mainContent {
     flex: 2;
-    max-width: 390px;
+    max-width: 336px;
     margin-top: 10px;
 	text-decoration:none;
 	
 }
 
 .sidebar {
-    flex-basis: 300px;
+    flex-basis: 320px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -96,6 +100,7 @@
 		
     }
 }
+
 
  .categorytop
  {
@@ -175,6 +180,7 @@
     position: relative;
     text-align: start;
     margin-bottom: 20px;
+	text-decoration:none;
 }
 
 .featuredImage {
@@ -237,7 +243,7 @@
         position: sticky;
                 top: 6px;
         margin-top: 10px;
-        width: 300px;
+        width: 320px;
     }
 }
 
@@ -288,7 +294,7 @@
 /* Headline */
 .leftColumnCardTitle {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 500;
     color: #333;
     display: -webkit-box;
     -webkit-line-clamp: 2; /* Limit to 2 lines */
@@ -354,7 +360,7 @@
 {
 	
 	font-size: 20px;
-    font-weight: bold;
+    font-weight: 500;
     color: #333;
    
 }
@@ -366,6 +372,7 @@
     .mainContent
 	{
 		order: ;
+		max-width: max-content;
 	}
 	
 }

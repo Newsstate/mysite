@@ -14,8 +14,13 @@ import MainContent from '@/components/MainContent';
 import NewsList from '@/components/NewsList.js';
 
 
-export default function Home({ newsData = [] }) {
 
+export default function Home({ newsData = [] }) {
+useEffect(() => {
+    if (window.adsbygoogle) {
+      window.adsbygoogle.push({});
+    }
+  }, []);
 
 
     // Filter posts
@@ -23,11 +28,10 @@ export default function Home({ newsData = [] }) {
     const big = newsData.filter(news => news.category === "शहर और राज्य").slice(0, 1);
 	const cricket = newsData.filter(news => news.category === "क्रिकेट").slice(2, 7);
     const business = newsData.filter(news => news.category === "कारोबार").slice(0, 4);
-    const auto = newsData.filter(news => news.category === "ऑटो").slice(0, 2);
+    const auto = newsData.filter(news => news.category === "ऑटो").slice(0, 4);
     const vrattyohar = newsData.filter(news => news.category === "आस्था").slice(0, 8);
-	const entertainment = newsData.filter(news => news.category === "मनोरंजन").slice(0, 10);
+	const entertainment = newsData.filter(news => news.category === "मनोरंजन").slice(0, 10); 
 	
-
     // Function to create slugs from titles
     const createSlug = (title) => encodeURIComponent(title.trim().replace(/\s+/g, '-'));
 
@@ -40,6 +44,7 @@ export default function Home({ newsData = [] }) {
                 <meta property="og:image" content="https://Newsstate24.com/og-image.jpg" />
                 <meta name="robots" content="index, follow" />
                 <link rel="canonical" href="https://www.newsstate24.com/" />
+				
             </Head>
 
       
@@ -52,7 +57,9 @@ export default function Home({ newsData = [] }) {
 			
 			{/*upper Main */}
             
+  
 			<div className={styles.container}>
+			
                 <main className={styles.contentArea}>
 				
 				
@@ -64,13 +71,14 @@ export default function Home({ newsData = [] }) {
 				
 				
                     {/* Left Sidebar */}
+					
                     <aside className={styles.leftColumn}>{big.map((news) => (<BigNewsCard key={news.id} news={news} />
 ))}
 
                       
 						
 						<CategoryNewsList title="शहर और राज्य" newsList={cityAndStateNews} />
-						<CategoryNewsList title="लाइफस्टाइल" newsList={cityAndStateNews} />
+						<CategoryNewsList title="ऑटो" newsList={auto} />
 						
 
 						
@@ -91,7 +99,33 @@ export default function Home({ newsData = [] }) {
 
                     {/* Right Sidebar */}
                     <aside className={styles.rightColumn}>
-                       <GoogleAd adSlot="2480605015" adFormat="rectangle" adStyle={{ width: "300", height: "250px" }} />
+                       
+					   <div>
+					    
+          {/* ✅ Hardcoded Google Ad */}
+      <div style={{ textAlign: "center", margin: "20px 0" }}>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "inline-block", width: "300px", height: "250px" }}
+          data-ad-client="ca-pub-6466761575770733"
+          data-ad-slot="7528468784"
+        ></ins>
+      </div>
+
+      {/* ✅ Load Google AdSense script */}
+      <Script
+        strategy="lazyOnload"
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733"
+        crossOrigin="anonymous"
+      /> 
+<div className={styles.categorytopad}><p>विज्ञापन</p></div>
+      {/* Place Google Ad Here */}
+      <GoogleAd adSlot="2480605015" adFormat="rectangle" width={300} height={250} />
+
+      
+    </div>
+					   
 						
                         <div className={styles.categorytop}><p>देश</p></div>
                         <div className={styles.newsList}>
@@ -101,7 +135,7 @@ export default function Home({ newsData = [] }) {
                                     id={post.id} 
                                     title={post.title} 
                                     image={post.image} 
-                                    category={"देश"	} 
+                                    category={"देश"} 
                                     categoryLink={`/category/${post.category}`} 
                                     date={post.publishedAt}
                                 />
@@ -141,22 +175,17 @@ export default function Home({ newsData = [] }) {
 					
                     <aside className={styles.rightColumn}>
                         <div className={styles.widget}>
-                              <GoogleAd adSlot="5053362651" adFormat="rectangle" adStyle={{ width: "300px", height: "250px" }} />
+                         
+      {/* Place Google Ad Here */}
+      <GoogleAd adSlot="2480605015" adFormat="rectangle" width={300} height={250} />
                         </div>
 
-						<CategoryNewsList title="मनोरंजन" newsList={entertainment} />
                       
 						<CategoryNewsList title="आस्था" newsList={vrattyohar} />
 
                         {/* Google AdSense Ad */}
                         
-						<div className={styles.widget}>
-                            <ins className="adsbygoogle"
-                                style={{ display: "inline-block", width: "300px", height: "250px" }}
-                                data-ad-client="ca-pub-6466761575770733"
-                                data-ad-slot="7528468784">
-                            </ins>
-                        </div>
+						
                     </aside>
                 </main>
             </div>
