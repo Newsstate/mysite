@@ -9,7 +9,6 @@ import Script from 'next/script';
 import sanitizeTitle from '@/utils/sanitizeTitle';
 import sanitizeExcerpt from '@/utils/sanitizeExcerpt'; // Import करें
 
-
 export default function Home({ newsData = [] }) {
   useEffect(() => {
     // Load the AdSense script dynamically
@@ -39,7 +38,56 @@ export default function Home({ newsData = [] }) {
   }, []);
 
   // Number of posts to display
-  const numberOfPostsToDisplay = 80; // Displaying 20 posts
+  const numberOfPostsToDisplay = 80;
+
+  // विज्ञापन कोड
+  const adCode = `
+    <div className={${JSON.stringify(styles.adContainer)}}>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733"
+        crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+        style="display:inline-block;width:300px;height:250px"
+        data-ad-client="ca-pub-6466761575770733"
+        data-ad-slot="7528468784"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  `;
+
+  const postsWithAds = [];
+  let postCounter = 0;
+  let adInterval = Math.floor(Math.random() * 0) + 0; // विज्ञापन दिखाने का यादृच्छिक अंतराल (3 से 5 पोस्ट के बाद)
+
+  for (const post of newsData.slice(0, numberOfPostsToDisplay)) {
+    postsWithAds.push(
+      <div key={post.id} className={styles.latestPostItem}>
+        <Link href={`/post/${post.slug}-${post.id}`}>
+          <span className={styles.latestPostCategory}>{post.category}</span>
+          <h2 className={styles.latestPostTitle}>{post.title}</h2>
+          {post.image && (
+            <img
+              src={post.image}
+              alt={post.title}
+              className={styles.latestPostImage}
+            />
+          )}
+          <p className={styles.latestPostDate}>{post.publishedAt}</p>
+          {post.excerpt && (
+            <p className={styles.latestPostExcerpt}>{post.excerpt}</p>
+          )}
+          {/* Display other post details as needed */}
+        </Link>
+      </div>
+    );
+
+    postCounter++;
+    if (postCounter % adInterval === 0 && postCounter < numberOfPostsToDisplay) {
+      postsWithAds.push(<div key={`ad-${postCounter}`} dangerouslySetInnerHTML={{ __html: adCode }} />);
+      // विज्ञापन दिखाने के बाद अगला यादृच्छिक अंतराल निर्धारित करें
+      adInterval = Math.floor(Math.random() * 3) + 3;
+    }
+  }
 
   return (
     <>
@@ -60,26 +108,7 @@ export default function Home({ newsData = [] }) {
           {/* Main Content */}
           <section className={styles.mainContent}>
             <div className={styles.latestPostsList}>
-          {newsData.slice(0, numberOfPostsToDisplay).map((post) => (
-  <div key={post.id} className={styles.latestPostItem}>
-    <Link href={`/post/${post.slug}-${post.id}`}>
-      <span className={styles.latestPostCategory}>{post.category}</span> {/* कैटेगरी लेबल यहाँ जोड़ा गया */}
-      <h2 className={styles.latestPostTitle}>{post.title}</h2>
-      {post.image && (
-        <img
-          src={post.image}
-          alt={post.title}
-          className={styles.latestPostImage}
-        />
-      )}
-      <p className={styles.latestPostDate}>{post.publishedAt}</p>
-      {post.excerpt && (
-        <p className={styles.latestPostExcerpt}>{post.excerpt}</p>
-      )}
-      {/* Display other post details as needed */}
-    </Link>
-  </div>
-))}
+              {postsWithAds}
             </div>
           </section>
 
@@ -116,21 +145,19 @@ export async function getServerSideProps() {
       .replace(/&amp;/g, "&")
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">");
-	  
-	  
 
-  const formattedNews = data.map(post => ({
-  id: post.id,
-  title: sanitizeTitle(decodeEntities(post.title.rendered)) || "No Title", // टाइटल को भी सैनिटाइज करें
-  image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/fallback-image.jpg',
-  publishedAt: new Date(post.date).toLocaleString('hi-IN', {
-    dateStyle: 'medium',
-    timeStyle: 'short'
-  }),
-  category: post._embedded?.['wp:term']?.[0]?.[0]?.name || "अन्य",
-  slug: post.slug,
-  excerpt: sanitizeExcerpt(decodeEntities(post.excerpt.rendered)) || "" // excerpt को सैनिटाइज करें
-}));
+    const formattedNews = data.map(post => ({
+      id: post.id,
+      title: sanitizeTitle(decodeEntities(post.title.rendered)) || "No Title",
+      image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/fallback-image.jpg',
+      publishedAt: new Date(post.date).toLocaleString('hi-IN', {
+        dateStyle: 'medium',
+        timeStyle: 'short'
+      }),
+      category: post._embedded?.['wp:term']?.[0]?.[0]?.name || "अन्य",
+      slug: post.slug,
+      excerpt: sanitizeExcerpt(decodeEntities(post.excerpt.rendered)) || ""
+    }));
 
     return {
       props: {

@@ -35,35 +35,61 @@ const insertReadArticleAfterSecondParagraph = (
       ? filteredArticles[Math.floor(Math.random() * filteredArticles.length)]
       : null;
 
+  let articleHtml = "";
   if (randomArticle) {
     const articleTitle = sanitizeTitle(randomArticle.title.rendered); // Sanitize title
     const articleUrl = `/post/${randomArticle.slug}-${randomArticle.id}`; // Use the slug from the API
+    articleHtml = `
+      <div style="
+        background-color: #f8f9fa;
+        border-left: 4px solid #007bff;
+        padding: 10px;
+        margin: 15px 0;
+        font-size: 16px;
+      ">
+        <strong>Also Read: </strong>
+        <a href="${articleUrl}">
+          "${articleTitle}"
+        </a>
+      </div>
+    `;
+  }
 
-    if (paragraphs.length > 2) {
-      paragraphs.splice(
-        2,
-        0,
-        `
-				<div style="
-					background-color: #f8f9fa;
-					border-left: 4px solid #007bff;
-					padding: 10px;
-					margin: 15px 0;
-					font-size: 16px;
-				">
-					<strong>Also Read: </strong>
-					<a href="${articleUrl}">
-						"${articleTitle}"
-					</a>
-				</div>
-			`
-      );
-    }
+  // विज्ञापन कोड
+  const adCode = `
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6466761575770733"
+      crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+      style="display:inline-block;width:300px;height:250px"
+      data-ad-client="ca-pub-6466761575770733"
+      data-ad-slot="7528468784"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  `;
+
+  if (paragraphs.length > 2) {
+    paragraphs.splice(
+      2,
+      0,
+      adCode, // विज्ञापन कोड यहाँ जोड़ा गया
+      articleHtml // उसके बाद "Also Read" सेक्शन
+    );
+  } else if (paragraphs.length > 1) {
+    paragraphs.splice(
+      1,
+      0,
+      adCode, // यदि केवल एक या दो पैराग्राफ हैं तो विज्ञापन को दूसरे के बाद डालें
+      articleHtml
+    );
+  } else if (paragraphs.length > 0) {
+    paragraphs.unshift(adCode, articleHtml); // यदि कोई पैराग्राफ नहीं है तो शुरुआत में डालें (हालांकि यह असामान्य स्थिति है)
+  } else {
+    return adCode + articleHtml; // यदि कोई कंटेंट नहीं है तो केवल विज्ञापन और "Also Read" रिटर्न करें
   }
 
   return paragraphs.join("</p>");
 };
-
 const cleanExcerpt = (htmlContent) => {
   if (!htmlContent) {
     return ""; // Handle null or undefined input
