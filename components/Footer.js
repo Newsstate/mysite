@@ -7,15 +7,7 @@ import styles from "@/styles/Footer.module.css";
 
 export default function Footer() {
   
-  useEffect(() => {
-    window.atOptions = {
-      key: "858b1cafc16ff2f2a9d7c019966229ea",
-      format: "iframe",
-      height: 50,
-      width: 320,
-      params: {},
-    };
-  }, []);
+
 
   return (
     <footer className={styles.footer}>
@@ -42,8 +34,10 @@ export default function Footer() {
           <Link href="/disclaimer" className={styles.button}>Disclaimer</Link>
           <Link href="/rss" className={styles.button}>RSS Feed</Link>
           <Link href="/api/sitemap.xml" className={styles.button}>Sitemap</Link>
+		  
         </div>
 
+ 
         {/* Right Section: Tag Cloud */}
         <div className={styles.section}>
           <p>
@@ -70,15 +64,10 @@ export default function Footer() {
       </div>
 
      
-      
+
      
 
-      {/* Load the Ad Script Correctly */}
-       <div className={styles.mobileAdContainer}>
-      <Script 
-        strategy="lazyOnload"
-        src="//www.highperformanceformat.com/858b1cafc16ff2f2a9d7c019966229ea/invoke.js"
-      /></div>
+    
     </footer>
   );
 }
