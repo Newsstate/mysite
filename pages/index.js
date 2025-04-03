@@ -38,7 +38,7 @@ export default function Home({ newsData = [] }) {
   }, []);
 
   // Number of posts to display
-  const numberOfPostsToDisplay = 80;
+  const numberOfPostsToDisplay = 82;
 
   // विज्ञापन कोड
   const adCode = `
@@ -57,7 +57,7 @@ export default function Home({ newsData = [] }) {
 
   const postsWithAds = [];
   let postCounter = 0;
-  let adInterval = Math.floor(Math.random() * 1) + 10; // विज्ञापन दिखाने का यादृच्छिक अंतराल (3 से 5 पोस्ट के बाद)
+  let adInterval = Math.floor(Math.random() * 0) + 4; // विज्ञापन दिखाने का यादृच्छिक अंतराल (3 से 5 पोस्ट के बाद)
 
   for (const post of newsData.slice(0, numberOfPostsToDisplay)) {
     postsWithAds.push(
@@ -85,7 +85,7 @@ export default function Home({ newsData = [] }) {
     if (postCounter % adInterval === 0 && postCounter < numberOfPostsToDisplay) {
       postsWithAds.push(<div key={`ad-${postCounter}`} dangerouslySetInnerHTML={{ __html: adCode }} />);
       // विज्ञापन दिखाने के बाद अगला यादृच्छिक अंतराल निर्धारित करें
-      adInterval = Math.floor(Math.random() * 3) + 3;
+      adInterval = Math.floor(Math.random() * 0) + 30;
     }
   }
 
@@ -118,7 +118,7 @@ export default function Home({ newsData = [] }) {
               <ins
                 className="adsbygoogle"
                 style={{ display: "inline-block", width: "300px", height: "250px" }}
-                data-ad-client="ca-pub-YOUR_AD_CLIENT" // Replace with your actual client ID
+                data-ad-client="ca-pub-6466761575770733" // Replace with your actual client ID
                 data-ad-slot="YOUR_AD_SLOT" // Replace with your actual ad slot ID
               ></ins>
             </div>
