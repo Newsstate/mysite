@@ -1,31 +1,6 @@
-/* CSS Variables */
-:root {
-  --text-color-primary: #333;
-  --text-color-secondary: #666;
-  --bg-color-light: #f9f9f9;
-  --border-color: #ddd;
-  --link-color: #007bff;
-  --font-size-base: 1rem;
-  --font-size-title: 29px;
-}
 
-/* styles/Article.module.css */
-.globalStyles {
-  /* यह क्लास खाली हो सकती है या इसमें वैश्विक स्टाइल हो सकते हैं */
-}
 
-/* CSS Variables */
-:global(.globalStyles) :root {
-  --text-color-primary: #333;
-  --text-color-secondary: #666;
-  /* ... अन्य CSS वेरिएबल ... */
-}
 
-/* ... अन्य स्टाइल ... */
-/* Base Styles */
-body {
-  font-family: sans-serif; /* Example font */
-}
 
 .socialShare {
 

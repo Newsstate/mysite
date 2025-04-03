@@ -19,3 +19,13 @@ body {
   font-family: sans-serif;
   /* ... अन्य वैश्विक बॉडी स्टाइल ... */
 }
+
+:root {
+  --text-color-primary: #333;
+  --text-color-secondary: #666;
+  --bg-color-light: #f9f9f9;
+  --border-color: #ddd;
+  --link-color: #007bff;
+  --font-size-base: 1rem;
+  --font-size-title: 29px;
+}
