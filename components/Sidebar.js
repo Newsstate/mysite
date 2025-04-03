@@ -63,9 +63,9 @@ const Sidebar = () => {
       <div className={styles.widget}>
         <ins
           className="adsbygoogle"
-          style={{ display: "inline-block", width: "300px", height: "250px" }}
+          style={{ display: "block" }}
           data-ad-client="ca-pub-6466761575770733"
-          data-ad-slot="2480605015"
+          data-ad-slot="6455669072"
         ></ins>
       </div>
 

@@ -16,8 +16,10 @@ const sanitizeTitle = (title) => {
     .replace(/\s+/g, " ") // Replace multiple spaces with single space
 	.replace(/[&hellip;];/g, " ") // Replace multiple spaces with single space
 	.replace(/&#8217;/g, "'") // Replace right single quote
+   .replace(/<\/p>/g, "") // सुधार: </p> टैग हटाएँ
+    .replace(/<p>/g, "")   // सुधार: <p> टैग हटाएँ
+	.replace(/\[\]/g, " ") // लिटरल [ और ] को एक साथ बदलें
 
-	.replace(/<p>;/g, "'") // Replace right single quote
 	
 	
 	

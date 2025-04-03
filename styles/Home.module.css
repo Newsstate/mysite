@@ -8,10 +8,27 @@
   grid-gap: 20px;
 }
 
+.latestPostCategory {
+  display: inline-block;
+  background-color: red; /* हल्का ग्रे बैकग्राउंड */
+  color: #fff; /* गहरा टेक्स्ट कलर */
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
 .latestPostItem {
   border: 1px solid #ddd;
   padding: 15px;
   transition: transform 0.2s; /* Smooth hover effect */
+}
+
+.latestPostExcerpt {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.5rem;
+  /* और भी स्टाइल जोड़ सकते हैं */
 }
 
 .latestPostItem:hover {

@@ -65,12 +65,18 @@ const insertReadArticleAfterSecondParagraph = (
 };
 
 const cleanExcerpt = (htmlContent) => {
+  if (!htmlContent) {
+    return ""; // Handle null or undefined input
+  }
+
   return htmlContent
-    .replace(/<a[^>]*>(.*?)<\/a>/g, "$1")
-    .replace(/<[^>]+>/g, "")
-    .replace(/Read more/gi, "")
-    .replace(/&hellip;/g, "")
-    .trim();
+    .replace(/<a[^>]*>(.*?)<\/a>/gi, "$1") // Remove anchor tags (case-insensitive)
+    .replace(/<[^>]+>/g, "") // Remove all HTML tags
+    .replace(/Read more/gi, "") // Remove "Read more" (case-insensitive)
+    .replace(/&hellip;/g, "...") // Replace ellipsis with "..."
+    .replace(/&#?[a-z0-9]+;/gi, "") // Remove HTML entities
+    .replace(/\s+/g, " ") // Remove extra spaces
+    .trim(); // Trim leading/trailing spaces
 };
 
 const PostPage = ({
@@ -116,12 +122,16 @@ const PostPage = ({
     post.id
   ); // Pass post.id
 
+  const cleanedExcerpt = cleanExcerpt(post.excerpt.rendered);
+  const metaDescription =
+    cleanedExcerpt.length > 160 ? cleanedExcerpt.substring(0, 157) + "..." : cleanedExcerpt;
+
   return (
     <>
       <Head>
         <html lang="hi" />
         <title>{sanitizedTitle}</title>
-        <meta name="description" content={cleanExcerpt(post.excerpt.rendered)} />
+        <meta name="description" content={metaDescription} />
         <meta name="robots" content="index, follow" />
         <meta name="robots" content="max-image-preview:large" />
         <link rel="canonical" href={canonicalUrl} />
@@ -144,7 +154,7 @@ const PostPage = ({
         <div className={styles.contentArea}>
           <div className={styles.mainContent}>
             <h1 className={styles.title}>{sanitizedTitle}</h1>
-            <p className={styles.excerpt}>{cleanExcerpt(post.excerpt.rendered)}</p>
+            <p className={styles.excerpt}>{cleanedExcerpt}</p>
 
             <p className={styles.articleMeta}>
               Published:{" "}
@@ -316,9 +326,6 @@ const PostPage = ({
         </div>
       </div>
 
-      <div className={styles.sidebarMobile}>
-        <Sidebar />
-      </div>
 
       <Footer />
     </>

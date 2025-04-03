@@ -6,6 +6,9 @@ import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import styles from '@/styles/Home.module.css';
 import Script from 'next/script';
+import sanitizeTitle from '@/utils/sanitizeTitle';
+import sanitizeExcerpt from '@/utils/sanitizeExcerpt'; // Import करें
+
 
 export default function Home({ newsData = [] }) {
   useEffect(() => {
@@ -13,7 +16,7 @@ export default function Home({ newsData = [] }) {
     const adsbygoogleScript = document.createElement("script");
     adsbygoogleScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
     adsbygoogleScript.async = true;
-    adsbygoogleScript.dataset.adClient = "ca-pub-YOUR_AD_CLIENT"; // Replace with your actual client ID
+    adsbygoogleScript.dataset.adClient = "ca-pub-6466761575770733"; // Replace with your actual client ID
     adsbygoogleScript.crossOrigin = "anonymous";
     document.body.appendChild(adsbygoogleScript);
 
@@ -57,22 +60,26 @@ export default function Home({ newsData = [] }) {
           {/* Main Content */}
           <section className={styles.mainContent}>
             <div className={styles.latestPostsList}>
-              {newsData.slice(0, numberOfPostsToDisplay).map((post) => (
-                <div key={post.id} className={styles.latestPostItem}>
-                  <Link href={`/post/${post.slug}-${post.id}`}>
-                    <h2 className={styles.latestPostTitle}>{post.title}</h2>
-                    {post.image && (
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className={styles.latestPostImage}
-                      />
-                    )}
-                    <p className={styles.latestPostDate}>{post.publishedAt}</p>
-                    {/* Display other post details as needed */}
-                  </Link>
-                </div>
-              ))}
+          {newsData.slice(0, numberOfPostsToDisplay).map((post) => (
+  <div key={post.id} className={styles.latestPostItem}>
+    <Link href={`/post/${post.slug}-${post.id}`}>
+      <span className={styles.latestPostCategory}>{post.category}</span> {/* कैटेगरी लेबल यहाँ जोड़ा गया */}
+      <h2 className={styles.latestPostTitle}>{post.title}</h2>
+      {post.image && (
+        <img
+          src={post.image}
+          alt={post.title}
+          className={styles.latestPostImage}
+        />
+      )}
+      <p className={styles.latestPostDate}>{post.publishedAt}</p>
+      {post.excerpt && (
+        <p className={styles.latestPostExcerpt}>{post.excerpt}</p>
+      )}
+      {/* Display other post details as needed */}
+    </Link>
+  </div>
+))}
             </div>
           </section>
 
@@ -109,18 +116,21 @@ export async function getServerSideProps() {
       .replace(/&amp;/g, "&")
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">");
+	  
+	  
 
-    const formattedNews = data.map(post => ({
-      id: post.id,
-      title: decodeEntities(post.title.rendered) || "No Title",
-      image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/fallback-image.jpg',
-      publishedAt: new Date(post.date).toLocaleString('hi-IN', {
-        dateStyle: 'medium',
-        timeStyle: 'short'
-      }),
-      category: post._embedded?.['wp:term']?.[0]?.[0]?.name || "अन्य",
-      slug: post.slug, // Fetch the slug from the API
-    }));
+  const formattedNews = data.map(post => ({
+  id: post.id,
+  title: sanitizeTitle(decodeEntities(post.title.rendered)) || "No Title", // टाइटल को भी सैनिटाइज करें
+  image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/fallback-image.jpg',
+  publishedAt: new Date(post.date).toLocaleString('hi-IN', {
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  }),
+  category: post._embedded?.['wp:term']?.[0]?.[0]?.name || "अन्य",
+  slug: post.slug,
+  excerpt: sanitizeExcerpt(decodeEntities(post.excerpt.rendered)) || "" // excerpt को सैनिटाइज करें
+}));
 
     return {
       props: {
