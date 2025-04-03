@@ -7,3 +7,15 @@
 .title {
   color: red;
 }
+
+/* styles/global.css */
+:root {
+  --text-color-primary: #333;
+  --text-color-secondary: #666;
+  /* ... अन्य CSS वेरिएबल ... */
+}
+
+body {
+  font-family: sans-serif;
+  /* ... अन्य वैश्विक बॉडी स्टाइल ... */
+}

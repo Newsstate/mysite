@@ -57,7 +57,7 @@ export default function Home({ newsData = [] }) {
 
   const postsWithAds = [];
   let postCounter = 0;
-  let adInterval = Math.floor(Math.random() * 0) + 0; // विज्ञापन दिखाने का यादृच्छिक अंतराल (3 से 5 पोस्ट के बाद)
+  let adInterval = Math.floor(Math.random() * 1) + 10; // विज्ञापन दिखाने का यादृच्छिक अंतराल (3 से 5 पोस्ट के बाद)
 
   for (const post of newsData.slice(0, numberOfPostsToDisplay)) {
     postsWithAds.push(
