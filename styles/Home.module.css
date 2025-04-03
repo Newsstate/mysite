@@ -1,378 +1,40 @@
-/* Home Page Ads Styles */
-.widget {
-    display: flex;
-    justify-content: center; /* Centers the ad horizontally */
-    align-items: center; /* Centers the ad vertically */
-    margin: 20px auto; /* Adds spacing around the ad */
-    max-width: 100%; /* Ensures responsiveness */
-}
-
-.adsbygoogle {
-    display: block;
-    width: 300px;
-    height: 250px;
-    max-width: 100%; /* Ensures it doesn't overflow on small screens */
-}
-
-
-.categorytopad
-
-{
-	text-align:center;
-}
-
-
-/* General Layout */
-.container {
-    max-width: 1010px;
-    margin: auto;
-    display: flex;
-    gap: 20px;
-    padding: 0;
-    width: 100%;
-}
-.featuredNews p {
-    font-size: 20px;  /* Adjust as needed */
-    font-weight: 500;
-    color: #222;  /* Darker for readability */
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
- 
-}
-
-.leftColumnCardbig {
-    display: none;
-    align-items: center;
-    text-decoration: none;
-    color: #222;
-    padding: 6px;
-    border-bottom: 1px solid #ddd; /* Separates list items */
-    gap: 10px;
-    transition: background 0.3s ease-in-out;
-	flex-direction:column;
-}
-
-.leftColumnCardbigImage
-{
-	width: 100%;
-    height: auto;
-    border-radius: 6px;
-    object-fit: cover;
-    flex-shrink: 0;
-	margin-bottom: -20px;
-}
-.leftColumnCardTitle
-{
-	
-	font-size: 20px;
-    font-weight: 500;
-    color: #333;
-   
-}
-/* 3-Column Grid Layout */
-.newsGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-/* Content Areas */
 .mainContent {
-    flex: 2;
-    max-width: 336px;
-    margin-top: 10px;
-	text-decoration:none;
-	
+  padding: 20px;
 }
 
-.sidebar {
-    flex-basis: 320px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.latestPostsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  grid-gap: 20px;
 }
 
-/* Hide Sidebars on Mobile */
-@media (max-width: 768px) {
-    .leftColumn,
-    .rightColumn {
-        display: block; /* Hide left and right sidebars */
-		
-    }
+.latestPostItem {
+  border: 1px solid #ddd;
+  padding: 15px;
+  transition: transform 0.2s; /* Smooth hover effect */
 }
 
-
- .categorytop
- {
-	     font-size: 18px;
-    
-    margin-top: -14px;
-    margin-bottom: -25px;
-    font-weight: bold;
-    border: none;
-    border-bottom: 2px solid red;
-    margin: -10px 0px;
-	 
- }
- 
-/* Header */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    padding: 15px 20px;
-    position: sticky;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
+.latestPostItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.siteTitle h1 {
-    font-size: 24px;
-    margin: 0;
+.latestPostTitle {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
 }
 
-/* Navigation */
-.nav ul {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-    margin: 0;
-    padding: 0;
+.latestPostImage {
+  width: 100%;
+  height: 200px; /* Fixed height for images */
+  object-fit: cover; /* Maintain image aspect ratio */
+  margin-bottom: 10px;
 }
 
-.nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px 12px;
-    transition: background 0.3s ease;
+.latestPostDate {
+  font-size: 0.9rem;
+  color: #777;
 }
 
-.nav ul li a:hover {
-    background: #555;
-    border-radius: 5px;
-}
-
-/* Content Layout */
-.contentArea {
-    display: flex;
-    gap: 20px;
-}
-
-.leftColumn {
-    flex: 1;
-    max-width: 100%;
-}
-
-.rightColumn {
-   max-width: 320px;
-    width: 100%;
-    position: sticky; /* Ensure it's positioned within normal flow */
-	max-width: max-content;
-}
-
-/* Featured News */
-.featuredNews {
-    width: 100%;
-    position: relative;
-    text-align: start;
-    margin-bottom: 20px;
-	text-decoration:none;
-}
-
-.featuredImage {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-.featuredTitle {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-/* Ad Box */
-.adContainer {
-    width: 300px;
-    height: 250px;
-    margin: 0 auto 20px;
-    text-align: center;
-    background: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 5px;
-    position: relative;
-    top: 10px; /* Adjust as needed */
-
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .newsGrid {
-        grid-template-columns: 1fr;
-    }
-    .contentArea {
-        flex-direction: column;
-    }
-    .container {
-        flex-direction: column;
-    }
-    .sidebar {
-        width: 100%;
-        margin-top: 20px;
-        padding: 10px;
-    }
-}
-
-
-/* Sticky Layout for Desktop */
-@media (min-width: 720px) {
-    .contentArea {
-        align-items: flex-start;
-        max-width: fit-content;
-        width: 1010px;
-    }
-    .leftColumn, .rightColumn {
-        align-self: flex-start;
-        position: sticky;
-                top: 6px;
-        margin-top: 10px;
-        width: 320px;
-    }
-}
-
-
-
-
-
-
-/* Home.module.css */
-
-/* New Card for Left Column */
-
-
-.leftColumnCard {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #222;
-    padding: 6px;
-    border-bottom: 1px solid #ddd; /* Separates list items */
-    gap: 10px;
-    transition: background 0.3s ease-in-out;
-	flex-direction:row;
-}
-
-
-.leftColumnCard:hover {
-    background: #f9f9f9;
-}
-
-/* Image (Left Side) */
-.leftColumnCardImage {
-    width: 70px;
-    height: 50px;
-    border-radius: 6px;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-
-/* Content (Right Side) */
-.leftColumnCardContent {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* Headline */
-.leftColumnCardTitle {
-    font-size: 16px;
-    font-weight: 500;
-    color: #333;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limit to 2 lines */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 3px;
-    line-height: 1.4;
-}
-
-/* Meta Info (Date & Category) */
-.metaInfo {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    color: #666;
-    gap: 8px; /* Adjust spacing */
-}
-
-/* Category Label */
-.categoryLabel {
-   
-    color:red;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: bold;
-}
-
-/* Post Date */
-.postDate {
-    font-size: 12px;
-    color: #888;
-}
-
-  
-	
-@media (max-width: 768px) {
-   
-
- .leftColumnCardbig {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #222;
-    padding: 6px;
-    border-bottom: 1px solid #ddd; /* Separates list items */
-    gap: 10px;
-    transition: background 0.3s ease-in-out;
-	flex-direction:column;
-}
-
-.leftColumnCardbigImage
-{
-	width: 100%;
-    height: auto;
-    border-radius: 6px;
-    object-fit: cover;
-    flex-shrink: 0;
-	margin-bottom: -20px;
-}
-.leftColumnCardTitlebig
-{
-	
-	font-size: 20px;
-    font-weight: 500;
-    color: #333;
-   
-}
-	
-.leftColumn,
-    .rightColumn {
-	order: ;
-	}
-    .mainContent
-	{
-		order: ;
-		max-width: max-content;
-	}
-	
-}
+/* Add more styles as needed */
