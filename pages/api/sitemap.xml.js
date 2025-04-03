@@ -52,7 +52,7 @@ export async function handler(req, res) {
         const englishSlug = post.slug;
         if (!englishSlug) return ""; // Skip posts without a slug
 
-        const loc = `${baseUrl}/category/${englishSlug}-${post.id}`; // Construct URL with category
+        const loc = `${baseUrl}/post/${englishSlug}-${post.id}`; // Construct URL with category
         const lastmod = convertToIST(new Date(post.modified));
         const publicationDate = convertToIST(new Date(post.date)); // Corrected line
         const hindiTitle = post.title.rendered;
