@@ -1,0 +1,46 @@
+.carouselContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar in IE */
+}
+
+.carousel::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome and Safari */
+}
+
+.carouselItem {
+    flex: 0 0 auto;
+    width: 300px;
+}
+
+.navButton {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.navButton:first-of-type {
+    left: 0;
+}
+
+.navButton:last-of-type {
+    right: 0;
+}

@@ -1,0 +1,123 @@
+.header {
+    width: 100%;
+    max-width: 1200px; /* Limit header width to 1200px */
+    margin: 0 auto; /* Center the header */
+    background: white;
+    
+  
+    display: flex;
+    flex-direction: unset;
+}
+
+/* Top bar (Logo & Toggle) */
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Logo */
+.logoContainer {
+    display: flex;
+    align-items: center;
+}
+
+.logoLink img {
+    max-height: 50px;
+}
+
+/* Menu Toggle Button */
+.menuToggle {
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+    display: none; /* Hide toggle button on desktop */
+}
+
+.menuToggle:hover {
+    transform: scale(1.1);
+}
+
+/* Navigation Menu */
+.nav {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    transition: max-height 0.3s ease-in-out;
+    align-items: center;
+}
+
+.nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    background: white;
+}
+
+.nav ul li {
+    margin: 0 15px;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+.nav ul li a:hover {
+    color: #0070f3;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .menuToggle {
+        display: block; /* Show toggle button on mobile */
+    }
+
+    .nav {
+        max-height: 0;
+        overflow: hidden;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #333;
+    }
+
+    .navOpen {
+        max-height: 300px;
+    }
+
+    .nav ul {
+        flex-direction: column;
+        align-items: center;
+        
+    }
+
+    .nav ul li {
+        margin: 10px 0;
+    }
+
+    .nav ul li a {
+        color: #333;
+    }
+
+.header {
+   
+   
+    margin: 0 auto; /* Center the header */
+    background: white;
+    
+  
+    display: flex;
+    flex-direction: unset;
+}
+}
